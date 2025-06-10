@@ -1,6 +1,25 @@
+name = 'polarnote'
+license = 'MIT'
+licenselink = 'https://github.com/moseoh/polarnote/blob/main/LICENSE'
+description = 'A modern, clean Hugo theme inspired by tech blogs'
+homepage = 'https://github.com/moseoh/polarnote'
+tags = ['blog', 'tech', 'modern', 'clean', 'responsive']
+features = ['responsive', 'clean design', 'modern layout', 'sidebar', 'hero section']
+min_version = '0.146.0'
+
+[author]
+  name = 'moseoh'
+  homepage = 'https://github.com/moseoh'
+
+# Site configuration
 baseURL = 'https://example.org/'
-languageCode = 'en-US'
-title = 'My New Hugo Site'
+languageCode = 'ko-KR'
+title = 'Polar Note'
+theme = 'polarnote'
+
+[params]
+  description = '혁신적인 기술과 인사이트를 공유하는 개발자 블로그'
+  categories = ['개발', '데이터/ML', '디자인', '프로덕트']
 
 [menus]
   [[menus.main]]
@@ -9,8 +28,8 @@ title = 'My New Hugo Site'
     weight = 10
 
   [[menus.main]]
-    name = 'Posts'
-    pageRef = '/posts'
+    name = 'Categories'
+    pageRef = '/categories'
     weight = 20
 
   [[menus.main]]
@@ -18,7 +37,56 @@ title = 'My New Hugo Site'
     pageRef = '/tags'
     weight = 30
 
+  [[menus.footer]]
+    name = 'Docs'
+    weight = 10
+
+    [[menus.footer.params]]
+      header = true
+
+  [[menus.footer]]
+    name = 'Installation & Usage'
+    pageRef = '/docs/installation'
+    parent = 'Docs'
+    weight = 10
+
+  [[menus.footer]]
+    name = 'Colors & Palettes'
+    pageRef = '/docs/colors'
+    parent = 'Docs'
+    weight = 20
+
+  [[menus.footer]]
+    name = 'Community'
+    weight = 20
+
+    [[menus.footer.params]]
+      header = true
+
+  [[menus.footer]]
+    name = 'Chats'
+    pageRef = '/community/chats'
+    parent = 'Community'
+    weight = 10
+
+  [[menus.footer]]
+    name = 'Content'
+    pageRef = '/community/content'
+    parent = 'Community'
+    weight = 20
+
 [module]
   [module.hugoVersion]
     extended = false
     min = '0.146.0'
+
+[taxonomies]
+  category = "categories"
+  tag = "tags"
+
+[outputs]
+  home = ["HTML", "RSS"]
+  page = ["HTML"]
+  section = ["HTML", "RSS"]
+  taxonomy = ["HTML", "RSS"]
+  term = ["HTML", "RSS"]

@@ -1,0 +1,83 @@
+<style>
+  .category-nav {
+    border-bottom: 1px solid #e9ecef;
+    padding: 0;
+  }
+
+  .category-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 40px;
+  }
+
+  .category-tabs {
+    display: flex;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    overflow-x: auto;
+  }
+
+  .category-tabs li {
+    flex-shrink: 0;
+  }
+
+  .category-tabs a {
+    display: block;
+    padding: 16px 24px;
+    text-decoration: none;
+    color: #6c757d;
+    font-weight: 500;
+    border-bottom: 2px solid transparent;
+    transition: all 0.2s;
+    white-space: nowrap;
+  }
+
+  .category-tabs a:hover {
+    color: #0066ff;
+  }
+
+  .category-tabs a.active {
+    color: #0066ff;
+    border-bottom-color: #0066ff;
+  }
+
+  @media (max-width: 1200px) {
+    .category-container {
+      max-width: 1200px;
+      padding: 0 30px;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .category-container {
+      padding: 0 20px;
+    }
+
+    .category-tabs a {
+      padding: 12px 20px;
+      font-size: 14px;
+    }
+  }
+</style>
+
+<div class="category-container">
+  <ul class="category-tabs">
+    <li>
+      <a href="{{ site.BaseURL }}" class="{{ if .IsHome }}active{{ end }}"
+        >전체</a
+      >
+    </li>
+
+    {{ $currentURL := .Permalink }} {{ range site.Taxonomies.categories }}
+    <li>
+      <a
+        href="{{ .Page.Permalink }}"
+        class="{{ if eq $currentURL .Page.Permalink }}active{{ end }}"
+      >
+        {{ .Page.Title }}
+      </a>
+    </li>
+    {{ end }}
+  </ul>
+</div>

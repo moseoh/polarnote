@@ -1,6 +1,11 @@
 baseURL = 'https://example.org/'
-languageCode = 'en-US'
-title = 'My New Hugo Site'
+languageCode = 'ko-KR'
+title = 'Polar Note - Example Site'
+theme = 'polarnote'
+
+[params]
+  description = '혁신적인 기술과 인사이트를 공유하는 개발자 블로그'
+  categories = ['개발', '데이터/ML', '디자인', '프로덕트']
 
 [menus]
   [[menus.main]]
@@ -14,9 +19,14 @@ title = 'My New Hugo Site'
     weight = 20
 
   [[menus.main]]
+    name = 'Categories'
+    pageRef = '/categories'
+    weight = 30
+
+  [[menus.main]]
     name = 'Tags'
     pageRef = '/tags'
-    weight = 30
+    weight = 40
 
 [module]
   [module.hugoVersion]
