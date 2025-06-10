@@ -1,1 +1,178 @@
-<p>Copyright {{ now.Year }}. All rights reserved.</p>
+<style>
+  .site-footer {
+    padding: 60px 0;
+    margin-top: 80px;
+    font-size: 0.9rem;
+  }
+
+  .footer-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 40px;
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: 80px;
+  }
+
+  .footer-about {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .footer-logo {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    color: #333;
+    font-weight: bold;
+    font-size: 1.2rem;
+    margin-bottom: 24px;
+  }
+
+  .footer-logo-icon {
+    width: 28px;
+    height: 28px;
+    background: #0066ff;
+    border-radius: 6px;
+    margin-right: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 14px;
+  }
+
+  .footer-social-links {
+    display: flex;
+    gap: 16px;
+    margin-bottom: 24px;
+  }
+
+  .footer-social-links a {
+    color: #6c757d;
+    font-size: 1.2rem;
+    transition: color 0.2s;
+  }
+
+  .footer-social-links a:hover {
+    color: #0066ff;
+  }
+
+  .footer-copyright {
+    line-height: 1.5;
+  }
+
+  .footer-links-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 40px;
+  }
+
+  .footer-links-column h4 {
+    color: #333;
+    font-size: 1rem;
+    margin-bottom: 20px;
+    font-weight: 500;
+  }
+
+  .footer-links-column ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .footer-links-column li {
+    margin-bottom: 12px;
+  }
+
+  .footer-links-column a {
+    text-decoration: none;
+    color: #6c757d;
+    transition: color 0.2s;
+  }
+
+  .footer-links-column a:hover {
+    color: #0066ff;
+  }
+
+  @media (max-width: 768px) {
+    .footer-container {
+      grid-template-columns: 1fr;
+      gap: 40px;
+    }
+
+    .footer-links-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+</style>
+
+<div class="footer-container">
+  <!-- About Section -->
+  <div class="footer-about">
+    <a href="{{ site.BaseURL }}" class="footer-logo">
+      <div class="footer-logo-icon">🔷</div>
+      <span>{{ site.Title }}</span>
+    </a>
+    <div class="footer-social-links">
+      <a href="#" title="GitHub">G</a>
+      <a href="#" title="Twitter">T</a>
+      <a href="#" title="LinkedIn">L</a>
+      <a href="#" title="Email">E</a>
+    </div>
+    <div class="footer-copyright">
+      © {{ now.Year }} {{ site.Params.author.name | default site.Title }}
+      <br />
+      All rights reserved.
+    </div>
+  </div>
+
+  <!-- Links Section -->
+  <div class="footer-links-grid">
+    {{ with site.Menus.footer }} {{ range . }}
+    <div class="footer-links-column">
+      <h4>{{ .Name }}</h4>
+      {{ if .HasChildren }}
+      <ul>
+        {{ range .Children }}
+        <li><a href="{{ .URL }}">{{ .Name }}</a></li>
+        {{ end }}
+      </ul>
+      {{ end }}
+    </div>
+    {{ end }} {{ else }}
+    <!-- Default footer links -->
+    <div class="footer-links-column">
+      <h4>Nord</h4>
+      <ul>
+        <li><a href="#">Palettes</a></li>
+        <li><a href="#">Ports</a></li>
+        <li><a href="#">Swatches</a></li>
+        <li><a href="#">Syntax Highlighting</a></li>
+        <li><a href="#">Community</a></li>
+      </ul>
+    </div>
+    <div class="footer-links-column">
+      <h4>Ports</h4>
+      <ul>
+        <li><a href="#">Search</a></li>
+      </ul>
+    </div>
+    <div class="footer-links-column">
+      <h4>Docs</h4>
+      <ul>
+        <li><a href="#">Installation & Usage</a></li>
+        <li><a href="#">Colors & Palettes</a></li>
+        <li><a href="#">Color Swatches</a></li>
+      </ul>
+    </div>
+    <div class="footer-links-column">
+      <h4>Community</h4>
+      <ul>
+        <li><a href="#">Chats</a></li>
+        <li><a href="#">Content</a></li>
+      </ul>
+    </div>
+    {{ end }}
+  </div>
+</div>

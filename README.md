@@ -1,8 +1,8 @@
-# Git Template
-
 ## Getting Started
 
 ```bash
-./.repo/init-owner.sh
-./.repo/init.sh
+hugo server --source exampleSite/ --themesDir ../..
+
+cd exampleSite
+hugo server --themesDir ../..
 ```

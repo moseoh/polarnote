@@ -1,0 +1,2 @@
+- pagenation
+  - pagenation은 content 하위 구조를 따름, categories, tags 속성으로 하기 까다로움

@@ -1,9 +1,11 @@
 +++
-title = 'Home'
+title = 'Polar Note'
 date = 2023-01-01T08:00:00-07:00
 draft = false
 +++
 
-Laborum voluptate pariatur ex culpa magna nostrud est incididunt fugiat
-pariatur do dolor ipsum enim. Consequat tempor do dolor eu. Non id id anim anim
-excepteur excepteur pariatur nostrud qui irure ullamco.
+**Polar Note**에 오신 것을 환영합니다!
+
+이곳은 혁신적인 기술과 인사이트를 공유하는 개발자 블로그입니다.
+최신 개발 트렌드, 데이터 사이언스, ML/AI, 그리고 프로덕트 개발에 관한
+깊이 있는 내용들을 다룹니다.

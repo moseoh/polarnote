@@ -1,2 +1,179 @@
-<h1>{{ site.Title }}</h1>
-{{ partial "menu.html" (dict "menuID" "main" "page" .) }}
+<style>
+  .site-header {
+    background: #fff;
+    border-bottom: 1px solid #e9ecef;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+
+  .header-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 40px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 64px;
+    width: 100%;
+  }
+
+  .logo {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    color: #0066ff;
+    font-weight: bold;
+    font-size: 18px;
+  }
+
+  .logo-icon {
+    width: 24px;
+    height: 24px;
+    background: #0066ff;
+    border-radius: 6px;
+    margin-right: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 12px;
+  }
+
+  .search-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+  }
+
+  .search-trigger {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 8px;
+    border-radius: 8px;
+    transition: all 0.2s;
+    color: #6c757d;
+    font-size: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+  }
+
+  .search-trigger:hover {
+    background: #f8f9fa;
+    color: #0066ff;
+  }
+
+  .search-input {
+    position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    padding: 10px 16px;
+    border: 1px solid #e9ecef;
+    border-radius: 8px;
+    font-size: 14px;
+    width: 300px;
+    background: white;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+    z-index: 10;
+  }
+
+  .search-input.active {
+    opacity: 1;
+    visibility: visible;
+  }
+
+  .search-input:focus {
+    outline: none;
+    border-color: #0066ff;
+    box-shadow: 0 4px 12px rgba(0, 102, 255, 0.2);
+  }
+
+  .search-input::placeholder {
+    color: #6c757d;
+  }
+
+  @media (max-width: 1200px) {
+    .header-container {
+      max-width: 1200px;
+      padding: 0 30px;
+    }
+
+    .search-input {
+      width: 250px;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .header-container {
+      padding: 0 20px;
+    }
+
+    .search-input {
+      width: 200px;
+      font-size: 13px;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .search-input {
+      width: 180px;
+      right: -10px;
+    }
+  }
+</style>
+
+<div class="header-container">
+  <!-- Logo -->
+  <a href="{{ site.BaseURL }}" class="logo">
+    <div class="logo-icon">🔷</div>
+    {{ site.Title }}
+  </a>
+
+  <!-- Search -->
+  <div class="search-container">
+    <button class="search-trigger" onclick="toggleSearch()">🔍</button>
+    <input
+      type="text"
+      class="search-input"
+      placeholder="검색어를 입력하세요"
+      onblur="hideSearch()"
+    />
+  </div>
+</div>
+
+<script>
+  function toggleSearch() {
+    const searchInput = document.querySelector(".search-input");
+    const isActive = searchInput.classList.contains("active");
+
+    if (isActive) {
+      searchInput.classList.remove("active");
+    } else {
+      searchInput.classList.add("active");
+      setTimeout(() => searchInput.focus(), 100);
+    }
+  }
+
+  function hideSearch() {
+    setTimeout(() => {
+      const searchInput = document.querySelector(".search-input");
+      searchInput.classList.remove("active");
+    }, 200);
+  }
+
+  // ESC 키로 검색창 숨기기
+  document.addEventListener("keydown", function (e) {
+    if (e.key === "Escape") {
+      const searchInput = document.querySelector(".search-input");
+      searchInput.classList.remove("active");
+    }
+  });
+</script>
