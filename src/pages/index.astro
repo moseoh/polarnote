@@ -1,11 +1,23 @@
 ---
+import { getCollection } from 'astro:content';
 import MainLayout from '../layouts/MainLayout.astro';
 import Header from '../components/Header.astro';
 import PostList from '../components/PostList.astro';
 import Sidebar from '../components/Sidebar.astro';
+import type { CollectionEntry } from 'astro:content';
 
 // Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
 // Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
+
+const posts = await getCollection('posts', ({ data }) => {
+	// `draft: true`인 포스트는 제외합니다.
+	return data.draft !== true;
+});
+
+const sortedPosts = posts.sort(
+	(a: CollectionEntry<'posts'>, b: CollectionEntry<'posts'>) =>
+		b.data.createdAt.valueOf() - a.data.createdAt.valueOf()
+);
 ---
 
 <MainLayout title="Toss Tech Blog">
@@ -14,7 +26,7 @@ import Sidebar from '../components/Sidebar.astro';
 		<div
 			class="grid grid-cols-1 lg:grid-cols-[1fr_auto] gap-12 items-start"
 		>
-			<PostList />
+			<PostList posts={sortedPosts} />
 			<Sidebar />
 		</div>
 	</main>

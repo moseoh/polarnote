@@ -1,45 +1,17 @@
 ---
 import PostListItem from './PostListItem.astro';
-import type { Props as PostListItemProps } from './PostListItem.astro';
+import type { CollectionEntry } from 'astro:content';
 
-// Placeholder data
-const categories: string[] = ['전체', '개발', '데이터/ML', '디자인'];
-const posts: PostListItemProps['post'][] = [
-  {
-    url: '#',
-    title: '신용대출 찾기 서비스 제휴사 mock 서버 개발기',
-    description:
-      '대출 연동 테스트의 안정성과 효율성을 극대화하는 mock 서버 개발기를 공유합니다.',
-    author: '류경린',
-    date: '2025년 6월 13일',
-    category: '개발',
-    imageUrl:
-      'https://wp.toss.tech/wp-content/uploads/2024/06/center-1-1.png',
-  },
-  {
-    url: '#',
-    title: '아름답고 이해하기 쉬운 세션 자료 만들기 | Simplicity 4 제작기 #5',
-    description:
-      'Simplicity의 모든 세션 속 시각 자료들은 겉보기엔 평범하지만 세심한 설계를 통해 만들어졌어요. 누구나 정보를 쉽고 아름답게 전달하는 자료를 만들 수 있도록 고민한 방법을 들려드릴게요.',
-    author: '유가빈',
-    date: '2025년 6월 10일',
-    category: '디자인',
-    imageUrl:
-      'https://wp.toss.tech/wp-content/uploads/2024/06/simplicity-4-cover.png',
-  },
-  {
-    url: '#',
-    title: '[현장으로 간 리서처] EP1. 커피값은 저희가 낼게요, 테스트 참여 해보실래요?',
-    description:
-      '다양한 변수가 존재하는 오프라인 결제 경험 - 최대한 변수를 줄이면서 사용성 평가를 하기 위해 고군분투했던 과정에 대해 들려드릴게요',
-    author: '강다희',
-    date: '2025년 6월 5일',
-    category: '디자인',
-    imageUrl:
-      'https://wp.toss.tech/wp-content/uploads/2024/06/Frame-1000005228.png',
-  },
-];
+export interface Props {
+  posts: CollectionEntry<'posts'>[];
+}
+
+const { posts } = Astro.props;
+
+// 임시 카테고리 데이터. 나중에는 posts 데이터에서 동적으로 생성할 수 있습니다.
+const categories = ['전체', '개발', '데이터/ML', '디자인'];
 ---
+
 <div class="w-full">
   <!-- Category Tabs -->
   <div class="mb-8 border-b border-gray-200">

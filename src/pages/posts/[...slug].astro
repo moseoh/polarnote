@@ -1,0 +1,56 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import { getCollection } from 'astro:content';
+import MainLayout from '../../layouts/MainLayout.astro';
+import Header from '../../components/Header.astro';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('posts', ({ data }) => {
+    return data.draft !== true;
+  });
+
+  return posts.map((post) => ({
+    params: { slug: post.slug },
+    props: { post },
+  }));
+}
+
+const { post } = Astro.props as { post: CollectionEntry<'posts'> };
+const { Content } = await post.render();
+
+function formatDate(date: Date) {
+  const year = date.getFullYear();
+  const month = String(date.getMonth() + 1).padStart(2, '0');
+  const day = String(date.getDate()).padStart(2, '0');
+  return `${year}년 ${month}월 ${day}일`;
+}
+---
+<MainLayout title={post.data.title}>
+  <Header />
+  <article
+    class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-12 prose lg:prose-xl"
+  >
+    <div class="mb-8 text-center">
+      <h1 class="text-4xl font-extrabold tracking-tight">
+        {post.data.title}
+      </h1>
+      <p class="mt-4 text-lg text-gray-500">
+        <span>{post.data.author.join(', ')}</span>
+        <span class="mx-2">·</span>
+        <span>{formatDate(post.data.createdAt)}</span>
+      </p>
+    </div>
+
+    {
+      post.data.heroImage && (
+        <img
+          src={post.data.heroImage.src}
+          alt={post.data.title}
+          class="w-full h-auto rounded-lg mb-8"
+        />
+      )
+    }
+
+    <Content />
+  </article>
+</MainLayout> 
