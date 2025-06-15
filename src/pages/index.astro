@@ -1,11 +1,21 @@
 ---
-import Welcome from '../components/Welcome.astro';
-import Layout from '../layouts/Layout.astro';
+import MainLayout from '../layouts/MainLayout.astro';
+import Header from '../components/Header.astro';
+import PostList from '../components/PostList.astro';
+import Sidebar from '../components/Sidebar.astro';
 
 // Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
 // Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
 ---
 
-<Layout>
-	<Welcome />
-</Layout>
+<MainLayout title="Toss Tech Blog">
+	<Header />
+	<main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+		<div
+			class="grid grid-cols-1 lg:grid-cols-[1fr_auto] gap-12 items-start"
+		>
+			<PostList />
+			<Sidebar />
+		</div>
+	</main>
+</MainLayout>
