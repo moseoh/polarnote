@@ -1,0 +1,68 @@
+---
+import { getCollection } from 'astro:content';
+import MainLayout from '../layouts/MainLayout.astro';
+import Header from '../components/Header.astro';
+import PostList from '../components/PostList.astro';
+import Sidebar from '../components/Sidebar.astro';
+import type { CollectionEntry } from 'astro:content';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('posts', ({ data }) => {
+    return data.draft !== true;
+  });
+
+  // 모든 카테고리 추출
+  const categories = [...new Set(
+    posts
+      .map((post: CollectionEntry<'posts'>) => post.data.category)
+      .filter(Boolean) as string[]
+  )];
+
+  return categories.map((category) => ({
+    params: { category: category.toLowerCase() },
+    props: { category },
+  }));
+}
+
+const { category } = Astro.props;
+
+const posts = await getCollection('posts', ({ data }) => {
+  return data.draft !== true;
+});
+
+const sortedPosts = posts.sort(
+  (a: CollectionEntry<'posts'>, b: CollectionEntry<'posts'>) =>
+    b.data.createdAt.valueOf() - a.data.createdAt.valueOf()
+);
+
+// 모든 카테고리 추출 및 '전체' 추가
+const allCategories = [
+  '전체',
+  ...new Set(
+    posts
+      .map((post: CollectionEntry<'posts'>) => post.data.category)
+      .filter(Boolean) as string[]
+  ),
+];
+
+// 현재 카테고리에 따라 포스트 필터링
+const filteredPosts = sortedPosts.filter((post: CollectionEntry<'posts'>) => {
+  return post.data.category === category;
+});
+---
+
+<MainLayout title="Toss Tech Blog">
+  <Header />
+  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    <div
+      class="grid grid-cols-1 lg:grid-cols-[1fr_auto] gap-12 items-start"
+    >
+      <PostList
+        posts={filteredPosts}
+        categories={allCategories}
+        currentCategory={category}
+      />
+      <Sidebar />
+    </div>
+  </main>
+</MainLayout>

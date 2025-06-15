@@ -18,6 +18,16 @@ const sortedPosts = posts.sort(
 	(a: CollectionEntry<'posts'>, b: CollectionEntry<'posts'>) =>
 		b.data.createdAt.valueOf() - a.data.createdAt.valueOf()
 );
+
+// 모든 카테고리 추출 및 '전체' 추가
+const allCategories = [
+	'전체',
+	...new Set(
+		posts
+			.map((post: CollectionEntry<'posts'>) => post.data.category)
+			.filter(Boolean) as string[]
+	),
+];
 ---
 
 <MainLayout title="Toss Tech Blog">
@@ -26,7 +36,11 @@ const sortedPosts = posts.sort(
 		<div
 			class="grid grid-cols-1 lg:grid-cols-[1fr_auto] gap-12 items-start"
 		>
-			<PostList posts={sortedPosts} />
+			<PostList
+				posts={sortedPosts}
+				categories={allCategories}
+				currentCategory="전체"
+			/>
 			<Sidebar />
 		</div>
 	</main>
