@@ -11,12 +11,15 @@ export async function getStaticPaths() {
     return data.draft !== true;
   });
 
-  // 모든 카테고리 추출
-  const categories = [...new Set(
-    posts
-      .map((post: CollectionEntry<'posts'>) => post.data.category)
-      .filter(Boolean) as string[]
-  )];
+  // 모든 카테고리 추출 + 'all' 추가
+  const categories = [
+    'all', // 전체 카테고리
+    ...new Set(
+      posts
+        .map((post: CollectionEntry<'posts'>) => post.data.category)
+        .filter(Boolean) as string[]
+    )
+  ];
 
   return categories.map((category) => ({
     params: { category: category.toLowerCase() },
@@ -46,9 +49,14 @@ const allCategories = [
 ];
 
 // 현재 카테고리에 따라 포스트 필터링
-const filteredPosts = sortedPosts.filter((post: CollectionEntry<'posts'>) => {
-  return post.data.category === category;
-});
+const filteredPosts = category === 'all' 
+  ? sortedPosts 
+  : sortedPosts.filter((post: CollectionEntry<'posts'>) => {
+      return post.data.category === category;
+    });
+
+// 현재 카테고리 표시용
+const displayCategory = category === 'all' ? '전체' : category;
 ---
 
 <MainLayout title="Toss Tech Blog">
@@ -60,9 +68,9 @@ const filteredPosts = sortedPosts.filter((post: CollectionEntry<'posts'>) => {
       <PostList
         posts={filteredPosts}
         categories={allCategories}
-        currentCategory={category}
+        currentCategory={displayCategory}
       />
-      <Sidebar />
+      <Sidebar posts={sortedPosts} currentCategory={displayCategory} />
     </div>
   </main>
 </MainLayout>

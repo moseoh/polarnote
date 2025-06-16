@@ -18,7 +18,7 @@ const { posts, categories, currentCategory } = Astro.props;
               {
           categories.map((category) => {
             const isActive = category === currentCategory;
-            const href = category === '전체' ? '/' : `/${category.toLowerCase()}`;
+            const href = category === '전체' ? '/all' : `/${category.toLowerCase()}`;
             return (
               <a
                 href={href}

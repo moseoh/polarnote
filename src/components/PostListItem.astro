@@ -1,4 +1,5 @@
 ---
+import { Image } from 'astro:assets';
 import type { CollectionEntry } from 'astro:content';
 
 export interface Props {
@@ -25,17 +26,34 @@ function formatDate(date: Date) {
       {post.data.title}
     </h2>
     <p class="text-gray-600 mt-2">{post.data.summary}</p>
-    <div class="text-sm text-gray-500 mt-4">
+    <div class="text-sm mt-6">
+      {post.data.tags.map((tag) => <span class="text-tag">#{tag} </span>)}
+    </div>
+    <div class="text-sm text-secondary mt-1">
       <span>{formatDate(post.data.createdAt)}</span>
-      <span class="mx-2">·</span>
+      <span class="mx-1">·</span>
       <span>{post.data.author.join(', ')}</span>
     </div>
   </div>
   <div class="w-full h-40 bg-gray-100 rounded-lg overflow-hidden">
-    <img
-      src={post.data.heroImage?.src ?? placeholderImage}
-      alt={post.data.title}
-      class="w-full h-full object-cover"
-    />
+    {post.data.heroImage ? (
+      <Image
+        src={post.data.heroImage}
+        alt={post.data.title}
+        class="w-full h-full object-cover"
+        width={240}
+        height={160}
+        loading="eager"
+      />
+    ) : (
+      <Image
+        src={placeholderImage}
+        alt={post.data.title}
+        class="w-full h-full object-cover"
+        width={240}
+        height={160}
+        loading="eager"
+      />
+    )}
   </div>
 </a> 
