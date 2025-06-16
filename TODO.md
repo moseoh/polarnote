@@ -7,4 +7,4 @@
 
 ### notion2md
 
-- [ ] specific slug, not created if not or duplicated
+- [ ] implement slug specification (prevent creation if not specified or duplicated)
