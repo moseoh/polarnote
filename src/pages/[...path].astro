@@ -1,0 +1,151 @@
+---
+import { getCollection } from 'astro:content';
+import MainLayout from '../layouts/MainLayout.astro';
+import Header from '../components/Header.astro';
+import PostList from '../components/PostList.astro';
+import Sidebar from '../components/Sidebar.astro';
+import Pagination from '../components/Pagination.astro';
+import type { CollectionEntry } from 'astro:content';
+import { POSTS_PER_PAGE } from '../config';
+
+// 1. 빌드 시 가능한 모든 URL 경로 생성
+export async function getStaticPaths() {
+  const posts = await getCollection('posts', ({ data }) => {
+    return data.draft !== true;
+  });
+
+  const allCategories = [
+    'all',
+    ...new Set(
+      posts.map((post) => post.data.category).filter(Boolean) as string[]
+    ),
+  ];
+  const paths: any[] = [];
+
+  for (const category of allCategories) {
+    const postsForCat =
+      category === 'all'
+        ? posts
+        : posts.filter((post) => post.data.category === category);
+
+    const allTags = [
+      'all',
+      ...new Set(postsForCat.flatMap((post) => post.data.tags || [])),
+    ];
+
+    for (const tag of allTags) {
+      const postsForTag =
+        tag === 'all'
+          ? postsForCat
+          : postsForCat.filter((post) => (post.data.tags || []).includes(tag));
+
+      if (postsForTag.length === 0) continue;
+
+      const totalPages = Math.ceil(postsForTag.length / POSTS_PER_PAGE);
+
+      for (let page = 1; page <= totalPages; page++) {
+        let path = '';
+        const categorySlug = category.toLowerCase();
+
+        if (category !== 'all' && tag !== 'all') {
+          path = `${categorySlug}/@${tag}`;
+        } else if (category !== 'all') {
+          path = categorySlug;
+        } else if (tag !== 'all') {
+          path = `@${tag}`;
+        }
+
+        if (page > 1) {
+          path = path ? `${path}/${page}` : `${page}`; // 페이지 번호만 있는 경우는 없음
+        }
+        
+        // 루트 경로는 path가 빈 문자열일 때를 위해 별도 처리
+        if (category === 'all' && tag === 'all' && page === 1) {
+             paths.push({ params: { path: undefined } }); // -> /
+        } else {
+             paths.push({ params: { path } });
+        }
+      }
+    }
+  }
+
+  return paths;
+}
+
+
+// 2. 현재 URL을 기반으로 pathProps 파싱
+const { path } = Astro.params;
+const pathSegments = path ? path.split('/') : [];
+
+let category = 'all';
+let tag = 'all';
+let page = 1;
+
+for (const segment of pathSegments) {
+  if (segment.startsWith('@')) {
+    tag = segment.substring(1);
+  } else if (!isNaN(Number(segment))) {
+    page = Number(segment);
+  } else {
+    category = segment;
+  }
+}
+
+// 3. 유효성 검사 후 리디렉션 또는 데이터 필터링
+const postsUnfiltered = await getCollection('posts', ({ data }) => {
+  return data.draft !== true;
+});
+
+const sortedPosts = postsUnfiltered.sort(
+  (a, b) => b.data.createdAt.valueOf() - a.data.createdAt.valueOf()
+);
+
+const postsForCategory =
+  category === 'all'
+    ? sortedPosts
+    : sortedPosts.filter((p) => p.data.category?.toLowerCase() === category);
+
+const postsForTag =
+  tag === 'all'
+    ? postsForCategory
+    : postsForCategory.filter((p) => (p.data.tags || []).includes(tag));
+
+const totalPages = Math.ceil(postsForTag.length / POSTS_PER_PAGE);
+const paginatedPosts = postsForTag.slice(
+  (page - 1) * POSTS_PER_PAGE,
+  page * POSTS_PER_PAGE
+);
+
+const allCategoriesForTabs = [
+  '전체',
+  ...new Set(
+    postsUnfiltered.map((post) => post.data.category).filter(Boolean) as string[]
+  ),
+];
+
+const displayCategory = category === 'all' ? '전체' : category;
+---
+
+<MainLayout title="Toss Tech Blog">
+  <Header />
+  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    <div
+      class="grid grid-cols-1 lg:grid-cols-[1fr_auto] gap-12 items-start"
+    >
+      <div>
+        <PostList
+          posts={paginatedPosts}
+          categories={allCategoriesForTabs}
+          currentCategory={displayCategory}
+        />
+        <Pagination
+          currentPage={page}
+          totalPages={totalPages}
+          category={category}
+          tag={tag}
+        />
+      </div>
+      <Sidebar posts={sortedPosts} currentCategory={displayCategory} currentTag={tag} />
+    </div>
+  </main>
+</MainLayout> 
