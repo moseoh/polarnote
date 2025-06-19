@@ -9,22 +9,12 @@ export interface Props {
 const { currentPage, totalPages, category, tag } = Astro.props;
 
 const getPageUrl = (page: number) => {
-  let path = '';
-  const categorySlug = category.toLowerCase();
-
-  if (category !== 'all' && tag !== 'all') {
-    path = `${categorySlug}/@${tag}`;
-  } else if (category !== 'all') {
-    path = categorySlug;
-  } else if (tag !== 'all') {
-    path = `@${tag}`;
-  }
-
-  if (page > 1) {
-    path = path ? `${path}/${page}` : `${page}`;
-  }
-
-  return `/${path}`;
+  // all인 경우 @으로 변환
+  const categoryParam = category === 'all' ? '@' : category;
+  const tagParam = tag === 'all' ? '@' : tag;
+  
+  // 새로운 명시적 라우팅 구조: /[category]/[tag]/[page]
+  return `/${categoryParam}/${tagParam}/${page}`;
 };
 ---
 

@@ -94,12 +94,9 @@ const recentComments = [
                 ? 'all'
                 : currentCategory.toLowerCase();
 
-            let href = '';
-            if (categorySlug !== 'all') {
-              href = `/${categorySlug}/@${tag}`;
-            } else {
-              href = `/@${tag}`;
-            }
+            // 새로운 명시적 라우팅 구조에 맞춰 링크 생성
+            const categoryParam = categorySlug === 'all' ? '@' : categorySlug;
+            const href = `/${categoryParam}/${tag}/1`;
             
             const isActive = currentTag === tag;
             

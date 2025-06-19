@@ -18,7 +18,9 @@ const { posts, categories, currentCategory } = Astro.props;
       {
         categories.map((category) => {
           const isActive = category.toLowerCase() === currentCategory.toLowerCase();
-          const href = category === '전체' ? '/' : `/${category.toLowerCase()}`;
+          // 새로운 명시적 라우팅 구조에 맞춰 링크 생성
+          const categoryParam = category === '전체' ? '@' : category.toLowerCase();
+          const href = `/${categoryParam}/@/1`;
           return (
             <a
               href={href}
