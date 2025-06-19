@@ -7,25 +7,28 @@ export interface Props {
   currentTag?: string;
 }
 
-const { posts, currentCategory, currentTag } = Astro.props;
+const { posts, currentCategory = '전체', currentTag } = Astro.props;
 
-// 현재 카테고리에 따라 포스트 필터링
-const filteredPostsForTags = currentCategory && currentCategory !== '전체'
-  ? posts.filter(post => post.data.category === currentCategory)
-  : posts;
+// Filter posts by the current category if it's not '전체'
+const filteredPosts =
+  currentCategory === '전체'
+    ? posts
+    : posts.filter(
+        (post) => post.data.category?.toLowerCase() === currentCategory.toLowerCase()
+      );
 
-// 태그별 포스트 개수 계산 (카테고리별로 필터링된 포스트 기준)
-const tagCounts = filteredPostsForTags.reduce((acc, post) => {
-  post.data.tags.forEach(tag => {
-    acc[tag] = (acc[tag] || 0) + 1;
-  });
+const tags = filteredPosts.reduce((acc: Record<string, number>, post) => {
+  if (post.data.tags) {
+    post.data.tags.forEach((tag) => {
+      acc[tag] = (acc[tag] || 0) + 1;
+    });
+  }
   return acc;
-}, {} as Record<string, number>);
+}, {});
 
-// 태그를 개수 순으로 정렬
-const sortedTags = Object.entries(tagCounts)
-  .sort(([, a], [, b]) => b - a)
-  .map(([tag, count]) => ({ tag, count }));
+const sortedTags = Object.entries(tags)
+  .map(([tag, count]) => ({ tag, count }))
+  .sort((a, b) => b.count - a.count);
 
 // 기존 데이터들 (주석처리)
 /*
@@ -86,9 +89,15 @@ const recentComments = [
       <div class="flex flex-wrap gap-2">
         {
           sortedTags.map(({ tag, count }) => {
-            const href = currentCategory && currentCategory !== '전체' 
-              ? `/${currentCategory.toLowerCase()}/tags/${tag}`
-              : `/all/tags/${tag}`;
+            const categorySlug =
+              !currentCategory || currentCategory === '전체'
+                ? 'all'
+                : currentCategory.toLowerCase();
+
+            // 새로운 명시적 라우팅 구조에 맞춰 링크 생성
+            const categoryParam = categorySlug === 'all' ? '@' : categorySlug;
+            const href = `/${categoryParam}/${tag}/1`;
+            
             const isActive = currentTag === tag;
             
             if (isActive) {
