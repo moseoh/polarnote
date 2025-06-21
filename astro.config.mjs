@@ -1,5 +1,6 @@
 // @ts-check
 import { defineConfig } from "astro/config";
+import { execSync } from "child_process";
 
 import tailwindcss from "@tailwindcss/vite";
 
@@ -7,5 +8,20 @@ import tailwindcss from "@tailwindcss/vite";
 export default defineConfig({
   vite: {
     plugins: [tailwindcss()],
+    build: {
+      rollupOptions: {
+        external: ["/pagefind/pagefind.js"],
+      },
+    },
   },
+  integrations: [
+    {
+      name: "pagefind",
+      hooks: {
+        "astro:build:done": () => {
+          execSync("npx pagefind --site dist", { stdio: "inherit" });
+        },
+      },
+    },
+  ],
 });
