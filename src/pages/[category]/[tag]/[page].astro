@@ -2,6 +2,7 @@
 import { getCollection } from 'astro:content';
 import MainLayout from '../../../layouts/MainLayout.astro';
 import Header from '../../../components/Header.astro';
+import Banner from '../../../components/Banner.astro';
 import PostList from '../../../components/PostList.astro';
 import Sidebar from '../../../components/Sidebar.astro';
 import Pagination from '../../../components/Pagination.astro';
@@ -63,6 +64,8 @@ export async function getStaticPaths() {
 // 2. 현재 URL 파라미터 파싱
 const { category: categoryParam, tag: tagParam, page: pageParam } = Astro.params;
 
+const isHomePage = categoryParam === '@' && tagParam === '@' && pageParam === '1';
+
 // @ 기호를 'all'로 변환
 const category = categoryParam === '@' ? 'all' : categoryParam!;
 const tag = tagParam === '@' ? 'all' : tagParam!;
@@ -114,11 +117,12 @@ const displayCategory = category === 'all' ? '전체' : (categoryMap.get(categor
 
 <MainLayout title="Toss Tech Blog">
   <Header />
-  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <Banner />
     <div
       class="grid grid-cols-1 lg:grid-cols-[1fr_auto] gap-12 items-start"
     >
-      <div>
+      <div class="pb-12">
         <PostList
           posts={paginatedPosts}
           categories={allCategoriesForTabs}
