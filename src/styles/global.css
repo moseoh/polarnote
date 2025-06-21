@@ -8,6 +8,8 @@
   --color-primary-light: #dbeafe;
   --color-gray-100: #f3f4f6;
   --color-gray-200: #e5e7eb;
+  --color-gray-300: #d1d5db;
+  --color-gray-400: #9ca3af;
   --color-gray-500: #6b7280;
   --color-gray-800: #1f2937;
 }
@@ -36,4 +38,30 @@
   background-color: #5e81ac;
   color: white;
   cursor: default;
+}
+
+/* Custom Scrollbar Styles */
+/* For Webkit-based browsers (Chrome, Safari and Opera) */
+::-webkit-scrollbar {
+  width: 14px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: var(--color-gray-300);
+  border-radius: 20px;
+  border: 3px solid transparent;
+  background-clip: content-box;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: var(--color-gray-400);
+}
+
+/* Prevent layout shift */
+html {
+  overflow-y: scroll;
 }
