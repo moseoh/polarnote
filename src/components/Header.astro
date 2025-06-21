@@ -1,5 +1,6 @@
 ---
 import { Search } from '@lucide/astro';
+import { SITE } from '../config';
 ---
 
 <header class="border-b border-gray-200">
@@ -22,7 +23,7 @@ import { Search } from '@lucide/astro';
                 stroke-width="2"
                 stroke-linecap="round"></path>
             </svg>
-            <span class="text-xl font-bold">toss tech</span>
+            <span class="text-xl font-bold">{SITE.title}</span>
           </a>
         </div>
         <div class="hidden md:flex space-x-8">
