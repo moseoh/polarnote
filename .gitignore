@@ -23,6 +23,8 @@ pnpm-debug.log*
 # jetbrains setting folder
 .idea/
 
-TODO.md
-
+# ETC
+.cursor
 src/content/posts/**
+TODO.md
+CLAUDE.md
