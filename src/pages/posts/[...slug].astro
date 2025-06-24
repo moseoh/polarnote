@@ -28,32 +28,53 @@ function formatDate(date: Date) {
 ---
 <MainLayout title={post.data.title}>
   <Header />
-  <article class="mx-auto px-4 sm:px-6 lg:px-8 py-12 prose lg:prose-xl" style={`max-width: ${LAYOUT.postWidth}`}>
-    <div class="mb-8 text-center">
-      <h1 class="text-4xl font-extrabold tracking-tight" data-pagefind-meta="title">
+  
+  <!-- Hero Image (와이드, 최상단) -->
+  {
+    post.data.heroImage && (
+      <div class="w-full mx-auto mt-12"  style={`max-width: ${LAYOUT.postWidth}`}>
+        <div class=" px-4 sm:px-6 lg:px-8">
+          <img
+            src={post.data.heroImage.src}
+            alt={post.data.title}
+            class="w-full h-64 sm:h-80 object-cover rounded-lg"
+          />
+        </div>
+      </div>
+    )
+  }
+
+  <article class="mx-auto px-4 sm:px-6 lg:px-8 py-8 prose prose-base" style={`max-width: ${LAYOUT.postWidth}`}>
+    <!-- 검색 가능하지만 excerpt에는 포함되지 않는 메타데이터 -->
+    <div data-pagefind-meta="title" style="display: none;">{post.data.title}</div>
+    <div data-pagefind-meta="author" style="display: none;">{post.data.author.join(', ')}</div>
+    <div data-pagefind-meta="tags" style="display: none;">{post.data.tags.join(' ')}</div>
+    
+    <!-- 제목, 작성자, 태그들 (왼쪽 정렬, 간격 줄임) -->
+    <div class="mb-12 text-left">
+      <h1 class="text-3xl font-bold tracking-tight mb-3">
         {post.data.title}
       </h1>
-      <p class="mt-4 text-lg text-gray-500">
-        <span data-pagefind-meta="author">{post.data.author.join(', ')}</span>
+      <p class="text-base text-gray-500 mb-3">
+        <span>{post.data.author.join(', ')}</span>
         <span class="mx-2">·</span>
         <span>{formatDate(post.data.createdAt)}</span>
       </p>
-      <div class="mt-4 text-lg text-gray-500" data-pagefind-meta="tags">
-        {post.data.tags.map((tag) => <span class="text-tag" >#{tag} </span>)}
+      <!-- 태그들 (Sidebar 스타일과 동일) -->
+      <div class="flex flex-wrap gap-2">
+        {post.data.tags.map((tag) => (
+          <a
+            href={`/@/${tag}/1`}
+            class="tag-default px-3 py-1 rounded-md text-sm font-medium transition-colors"
+          >
+            <span>#{tag}</span>
+          </a>
+        ))}
       </div>
     </div>
 
-    {
-      post.data.heroImage && (
-        <img
-          src={post.data.heroImage.src}
-          alt={post.data.title}
-          class="w-full h-auto rounded-lg mb-8"
-        />
-      )
-    }
-
-    <div data-pagefind-meta="content">
+    <!-- excerpt에 포함될 실제 콘텐츠만 -->
+    <div data-pagefind-body>
       <Content />
     </div>
   </article>
