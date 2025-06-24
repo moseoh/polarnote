@@ -32,8 +32,8 @@ function formatDate(date: Date) {
   <!-- Hero Image (와이드, 최상단) -->
   {
     post.data.heroImage && (
-      <div class="w-full" style={`max-width: ${LAYOUT.siteWidth}`}>
-        <div class="mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="w-full mx-auto mt-12"  style={`max-width: ${LAYOUT.postWidth}`}>
+        <div class=" px-4 sm:px-6 lg:px-8">
           <img
             src={post.data.heroImage.src}
             alt={post.data.title}
@@ -51,7 +51,7 @@ function formatDate(date: Date) {
     <div data-pagefind-meta="tags" style="display: none;">{post.data.tags.join(' ')}</div>
     
     <!-- 제목, 작성자, 태그들 (왼쪽 정렬, 간격 줄임) -->
-    <div class="mb-6 text-left">
+    <div class="mb-12 text-left">
       <h1 class="text-3xl font-bold tracking-tight mb-3">
         {post.data.title}
       </h1>
@@ -67,7 +67,7 @@ function formatDate(date: Date) {
             href={`/@/${tag}/1`}
             class="tag-default px-3 py-1 rounded-md text-sm font-medium transition-colors"
           >
-            {tag}
+            <span>#{tag}</span>
           </a>
         ))}
       </div>
