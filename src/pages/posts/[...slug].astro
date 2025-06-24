@@ -3,6 +3,7 @@ import type { CollectionEntry } from 'astro:content';
 import { getCollection } from 'astro:content';
 import MainLayout from '../../layouts/MainLayout.astro';
 import Header from '../../components/Header.astro';
+import { LAYOUT } from '../../config';
 
 export async function getStaticPaths() {
   const posts = await getCollection('posts', ({ data }) => {
@@ -27,10 +28,7 @@ function formatDate(date: Date) {
 ---
 <MainLayout title={post.data.title}>
   <Header />
-  <article
-    class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-12 prose lg:prose-xl"
-    data-pagefind-body
-  >
+  <article class="mx-auto px-4 sm:px-6 lg:px-8 py-12 prose lg:prose-xl" style={`max-width: ${LAYOUT.postWidth}`}>
     <div class="mb-8 text-center">
       <h1 class="text-4xl font-extrabold tracking-tight" data-pagefind-meta="title">
         {post.data.title}

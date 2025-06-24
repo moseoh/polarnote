@@ -7,7 +7,7 @@ import PostList from '../../../components/PostList.astro';
 import Sidebar from '../../../components/Sidebar.astro';
 import Pagination from '../../../components/Pagination.astro';
 import type { CollectionEntry } from 'astro:content';
-import { POSTS_PER_PAGE, SITE } from '../../../config';
+import { POSTS_PER_PAGE, SITE, LAYOUT } from '../../../config';
 
 // 1. 빌드 시 가능한 모든 URL 경로 생성
 export async function getStaticPaths() {
@@ -117,7 +117,7 @@ const displayCategory = category === 'all' ? '전체' : (categoryMap.get(categor
 
 <MainLayout title={SITE.title}>
   <Header />
-  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+  <main class="mx-auto px-4 sm:px-6 lg:px-8" style={`max-width: ${LAYOUT.siteWidth}`}>
     <Banner />
     <div
       class="grid grid-cols-1 lg:grid-cols-[1fr_auto] gap-12 items-start"
