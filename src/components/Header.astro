@@ -47,7 +47,7 @@ import SearchModal from './SearchModal.astro';
 <SearchModal />
 
 <script>
-  // OS 감지 및 키보드 단축키 표시 업데이트
+  // OS 감지
   function detectOS() {
     const platform = navigator.platform.toLowerCase();
     const userAgent = navigator.userAgent.toLowerCase();
@@ -86,7 +86,6 @@ import SearchModal from './SearchModal.astro';
 
   // 헤더 초기화
   function initializeHeader() {
-    console.log('헤더 초기화 중...', location.pathname);
     updateKeyboardHints();
     setupTriggerButton();
   }

@@ -132,7 +132,7 @@ import { Search } from '@lucide/astro';
     return pagefind;
   }
 
-  // OS 감지
+  // 유틸리티 함수들
   function detectOS() {
     const platform = navigator.platform.toLowerCase();
     const userAgent = navigator.userAgent.toLowerCase();
@@ -240,10 +240,11 @@ import { Search } from '@lucide/astro';
     return cleanText.replace(regex, '<mark class="bg-yellow-200 rounded">$1</mark>');
   }
 
-  // 검색 기능 (Pagefind 사용)
+  // 검색 상태 변수
   let searchTimeout: any;
   let selectedIndex = -1;
   
+  // 검색 실행 함수
   async function performSearch(query: string) {
     const resultsContainer = document.getElementById('search-modal-results');
     
@@ -336,7 +337,7 @@ import { Search } from '@lucide/astro';
     }
   }
 
-  // 키보드 네비게이션
+  // 검색 결과 선택 관리
   function updateSelection() {
     const items = document.querySelectorAll('.search-result-item');
     items.forEach((item, index) => {
@@ -361,10 +362,66 @@ import { Search } from '@lucide/astro';
     }
   }
 
+  // 전역 키보드 이벤트 설정
+  function setupGlobalKeyboardEvents() {
+    document.addEventListener('keydown', (e) => {
+      const os = detectOS();
+      const shortcutKey = os === 'mac' ? e.metaKey : e.ctrlKey;
+      
+      // Cmd+K / Ctrl+K로 모달 토글
+      if (shortcutKey && e.key.toLowerCase() === 'k') {
+        e.preventDefault();
+        const modal = document.getElementById('search-modal');
+        if(modal?.classList.contains('hidden')) {
+          openSearchModal();
+        } else {
+          closeSearchModal();
+        }
+        return;
+      }
+      
+      // 모달이 열려있을 때만 작동하는 키보드 내비게이션
+      const searchModal = document.getElementById('search-modal');
+      if (searchModal && !searchModal.classList.contains('hidden')) {
+        handleModalKeyboardNavigation(e);
+      }
+    });
+  }
+
+  // 모달 키보드 내비게이션 처리
+  function handleModalKeyboardNavigation(e: KeyboardEvent) {
+    switch (e.key) {
+      case 'Escape':
+        e.preventDefault();
+        closeSearchModal();
+        break;
+        
+      case 'ArrowDown':
+        e.preventDefault();
+        const maxIndex = document.querySelectorAll('.search-result-item').length - 1;
+        selectedIndex = Math.min(selectedIndex + 1, maxIndex);
+        updateSelection();
+        break;
+        
+      case 'ArrowUp':
+        e.preventDefault();
+        selectedIndex = Math.max(selectedIndex - 1, -1);
+        updateSelection();
+        break;
+        
+      case 'Enter':
+        e.preventDefault();
+        if (selectedIndex >= 0) {
+          selectResult();
+        }
+        break;
+    }
+  }
+
   // 전역 이벤트 리스너 플래그
   let eventListenersAdded = false;
 
-  // 이벤트 리스너 설정
+  // 모달 로컬 이벤트 리스너 설정
   function setupSearchModalEventListeners() {
     const searchInput = document.getElementById('search-modal-input') as HTMLInputElement;
     const searchModal = document.getElementById('search-modal');
@@ -378,7 +435,7 @@ import { Search } from '@lucide/astro';
     // 백드롭 클릭으로 닫기
     searchBackdrop.addEventListener('click', closeSearchModal);
 
-    // 검색 입력 이벤트
+    // 검색 입력 이벤트 (디바운싱 적용)
     searchInput.addEventListener('input', (e) => {
       const query = (e.target as HTMLInputElement).value;
       
@@ -388,63 +445,15 @@ import { Search } from '@lucide/astro';
       }, 300);
     });
     
-    // 전역 키보드 이벤트 (한 번만 등록)
+    // 전역 키보드 이벤트 등록 (한 번만)
     if (!eventListenersAdded) {
-      document.addEventListener('keydown', (e) => {
-        const os = detectOS();
-        const shortcutKey = os === 'mac' ? e.metaKey : e.ctrlKey;
-        
-        // Cmd+K / Ctrl+K로 모달 열기 (항상 체크)
-        if (shortcutKey && e.key.toLowerCase() === 'k') {
-          e.preventDefault();
-          const modal = document.getElementById('search-modal');
-          if(modal?.classList.contains('hidden')) {
-            openSearchModal();
-          } else {
-            closeSearchModal();
-          }
-          return;
-        }
-        
-        // 모달이 열려있을 때만 작동하는 키들
-        const searchModal = document.getElementById('search-modal');
-        if (searchModal && !searchModal.classList.contains('hidden')) {
-          switch (e.key) {
-            case 'Escape':
-              e.preventDefault();
-              closeSearchModal();
-              break;
-              
-            case 'ArrowDown':
-              e.preventDefault();
-              const maxIndex = document.querySelectorAll('.search-result-item').length - 1;
-              selectedIndex = Math.min(selectedIndex + 1, maxIndex);
-              updateSelection();
-              break;
-              
-            case 'ArrowUp':
-              e.preventDefault();
-              selectedIndex = Math.max(selectedIndex - 1, -1);
-              updateSelection();
-              break;
-              
-            case 'Enter':
-              e.preventDefault();
-              if (selectedIndex >= 0) {
-                selectResult();
-              }
-              break;
-          }
-        }
-      });
-      
+      setupGlobalKeyboardEvents();
       eventListenersAdded = true;
     }
   }
 
   // 검색 모달 초기화
   function initializeSearchModal() {
-    console.log('검색 모달 초기화 중...', location.pathname);
     setupSearchModalEventListeners();
   }
 
