@@ -29,16 +29,20 @@ function formatDate(date: Date) {
   <Header />
   <article
     class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-12 prose lg:prose-xl"
+    data-pagefind-body
   >
     <div class="mb-8 text-center">
-      <h1 class="text-4xl font-extrabold tracking-tight">
+      <h1 class="text-4xl font-extrabold tracking-tight" data-pagefind-meta="title">
         {post.data.title}
       </h1>
       <p class="mt-4 text-lg text-gray-500">
-        <span>{post.data.author.join(', ')}</span>
+        <span data-pagefind-meta="author">{post.data.author.join(', ')}</span>
         <span class="mx-2">·</span>
         <span>{formatDate(post.data.createdAt)}</span>
       </p>
+      <div class="mt-4 text-lg text-gray-500" data-pagefind-meta="tags">
+        {post.data.tags.map((tag) => <span class="text-tag" >#{tag} </span>)}
+      </div>
     </div>
 
     {
@@ -51,6 +55,8 @@ function formatDate(date: Date) {
       )
     }
 
-    <Content />
+    <div data-pagefind-meta="content">
+      <Content />
+    </div>
   </article>
 </MainLayout> 
