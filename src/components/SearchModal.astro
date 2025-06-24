@@ -223,6 +223,23 @@ import { Search } from '@lucide/astro';
     document.getElementById('search-modal-empty')?.classList.remove('hidden');
   }
 
+  // 기존 하이라이팅 제거 함수
+  function removeExistingHighlight(text: string): string {
+    if (!text) return text;
+    // pagefind의 기본 하이라이팅 태그 제거
+    return text.replace(/<\/?mark[^>]*>/gi, '');
+  }
+
+  // 커스텀 하이라이팅 함수
+  function highlightText(text: string, query: string): string {
+    if (!query || !text) return text;
+    
+    // 기존 하이라이팅 제거 후 커스텀 하이라이팅 적용
+    const cleanText = removeExistingHighlight(text);
+    const regex = new RegExp(`(${query.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')})`, 'gi');
+    return cleanText.replace(regex, '<mark class="bg-yellow-200 rounded">$1</mark>');
+  }
+
   // 검색 기능 (Pagefind 사용)
   let searchTimeout: any;
   let selectedIndex = -1;
@@ -262,10 +279,11 @@ import { Search } from '@lucide/astro';
         resultsContainer.innerHTML = resultsData.map((data: any, index: number) => {
           const title = data.meta?.title || '제목 없음';
           const tags = data.meta?.tags ? data.meta.tags.split(' ').filter((tag: string) => tag.trim()) : [];
-          // 이 부분 meta.content로 최적화 하고 싶은데 excerpt가 뭘까
-          const content = data.excerpt || data.meta?.content || '';
+          const content = data.excerpt || '';
 
-
+          // 하이라이팅 적용 (모든 텍스트에 일관된 스타일 적용)
+          const highlightedTitle = highlightText(title, query);
+          const highlightedContent = highlightText(content, query);
           
           return `
              <div class="search-result-item group cursor-pointer rounded-lg p-4 hover:bg-white transition-colors ${index === selectedIndex ? 'bg-white shadow-sm selected' : 'bg-transparent'}" data-url="${data.url}" data-index="${index}">
@@ -278,21 +296,21 @@ import { Search } from '@lucide/astro';
                  <div class="flex-1 min-w-0 space-y-2">
                    <!-- Title -->
                    <div>
-                     <h3 class="text-sm font-medium text-gray-900 group-hover:text-blue-600 transition-colors">${title}</h3>
+                     <h3 class="text-sm font-medium text-gray-900 group-hover:text-blue-600 transition-colors">${highlightedTitle}</h3>
                    </div>
                    
                    <!-- Tags -->
                    ${tags.length > 0 ? `
                      <div>
                        <div class="flex flex-wrap gap-1 mt-1">
-                         ${tags.map((tag: string) => `<span class="inline-flex items-center px-2 py-0.5 rounded text-xs bg-blue-50 text-blue-700 border border-blue-200">${tag}</span>`).join('')}
+                         ${tags.map((tag: string) => `<span class="inline-flex items-center px-2 py-0.5 rounded text-xs bg-blue-50 text-blue-700 border border-blue-200">${highlightText(tag, query)}</span>`).join('')}
                        </div>
                      </div>
                    ` : ''}
                    
                    <!-- Content -->
                    <div>
-                     <p class="text-sm text-gray-600 mt-1">${content}</p>
+                     <p class="text-sm text-gray-600 mt-1">${highlightedContent}</p>
                    </div>
                  </div>
                </div>
