@@ -19,7 +19,11 @@ export default defineConfig({
       name: "pagefind",
       hooks: {
         "astro:build:done": () => {
-          execSync("npx pagefind --site dist", { stdio: "inherit" });
+          try {
+            execSync("npx pagefind --site dist", { stdio: "inherit" });
+          } catch (error) {
+            console.log("Pagefind skipped: no HTML files found in dist directory");
+          }
         },
       },
     },

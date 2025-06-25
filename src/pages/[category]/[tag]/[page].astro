@@ -42,9 +42,7 @@ export async function getStaticPaths() {
           ? postsForCat
           : postsForCat.filter((post) => (post.data.tags || []).includes(actualTag));
 
-      if (postsForTag.length === 0) continue;
-
-      const totalPages = Math.ceil(postsForTag.length / POSTS_PER_PAGE);
+      const totalPages = Math.max(1, Math.ceil(postsForTag.length / POSTS_PER_PAGE));
 
       for (let page = 1; page <= totalPages; page++) {
         paths.push({ 
@@ -64,7 +62,6 @@ export async function getStaticPaths() {
 // 2. 현재 URL 파라미터 파싱
 const { category: categoryParam, tag: tagParam, page: pageParam } = Astro.params;
 
-const isHomePage = categoryParam === '@' && tagParam === '@' && pageParam === '1';
 
 // @ 기호를 'all'로 변환
 const category = categoryParam === '@' ? 'all' : categoryParam!;
@@ -90,7 +87,7 @@ const postsForTag =
     ? postsForCategory
     : postsForCategory.filter((p) => (p.data.tags || []).includes(tag));
 
-const totalPages = Math.ceil(postsForTag.length / POSTS_PER_PAGE);
+const totalPages = Math.max(1, Math.ceil(postsForTag.length / POSTS_PER_PAGE));
 const paginatedPosts = postsForTag.slice(
   (page - 1) * POSTS_PER_PAGE,
   page * POSTS_PER_PAGE
