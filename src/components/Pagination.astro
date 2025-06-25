@@ -25,9 +25,9 @@ const getPageUrl = (page: number) => {
       <a
         href={currentPage > 1 ? getPageUrl(currentPage - 1) : '#'}
         class:list={[
-          'flex items-center justify-center px-4 h-10 ms-0 leading-tight text-gray-500 bg-white border border-e-0 border-gray-300 rounded-s-lg',
+          'flex items-center justify-center px-4 h-10 ms-0 leading-tight text-foreground-secondary bg-background-primary border border-e-0 border-border-primary rounded-s-lg',
           currentPage > 1
-            ? 'hover:bg-gray-100 hover:text-gray-700'
+            ? 'hover:bg-background-secondary hover:text-foreground-primary'
             : 'opacity-50 cursor-not-allowed',
         ]}
       >
@@ -55,10 +55,10 @@ const getPageUrl = (page: number) => {
           <a
             href={getPageUrl(page)}
             class:list={[
-              'flex items-center justify-center px-4 h-10 leading-tight border border-gray-300',
+              'flex items-center justify-center px-4 h-10 leading-tight border border-border-primary',
               page === currentPage
-                ? 'text-blue-600 bg-blue-50 hover:bg-blue-100 hover:text-blue-700'
-                : 'text-gray-500 bg-white hover:bg-gray-100 hover:text-gray-700',
+                ? 'text-accent-primary bg-background-secondary hover:bg-background-tertiary hover:text-accent-primary'
+                : 'text-foreground-secondary bg-background-primary hover:bg-background-secondary hover:text-foreground-primary',
             ]}
           >
             {page}
@@ -71,9 +71,9 @@ const getPageUrl = (page: number) => {
       <a
         href={currentPage < totalPages ? getPageUrl(currentPage + 1) : '#'}
         class:list={[
-          'flex items-center justify-center px-4 h-10 leading-tight text-gray-500 bg-white border border-gray-300 rounded-e-lg',
+          'flex items-center justify-center px-4 h-10 leading-tight text-foreground-secondary bg-background-primary border border-border-primary rounded-e-lg',
           currentPage < totalPages
-            ? 'hover:bg-gray-100 hover:text-gray-700'
+            ? 'hover:bg-background-secondary hover:text-foreground-primary'
             : 'opacity-50 cursor-not-allowed',
         ]}
       >

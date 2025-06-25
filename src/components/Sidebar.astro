@@ -85,7 +85,7 @@ const recentComments = [
   <div class="space-y-12">
     <!-- 태그 -->
     <section>
-      <h2 class="text-lg font-bold mb-4">태그</h2>
+      <h2 class="text-lg font-bold mb-4 text-foreground-primary">태그</h2>
       <div class="flex flex-wrap gap-2">
         {
           sortedTags.map(({ tag, count }) => {
@@ -104,10 +104,10 @@ const recentComments = [
               // 활성화된 태그는 클릭 비활성화
               return (
                 <span
-                  class="tag-active px-3 py-1 rounded-md text-sm font-medium flex items-center gap-1"
+                  class="bg-accent-primary text-background-primary px-3 py-1 rounded-md text-sm font-medium flex items-center gap-1"
                 >
                   <span>{tag}</span>
-                  <span class="text-blue-100 bg-blue-600 text-xs px-1.5 py-0.5 rounded-full">{count}</span>
+                  <span class="bg-background-primary text-accent-primary text-xs px-1.5 py-0.5 rounded-full">{count}</span>
                 </span>
               );
             }
@@ -115,10 +115,10 @@ const recentComments = [
             return (
               <a
                 href={href}
-                class="tag-default px-3 py-1 rounded-md text-sm font-medium transition-colors flex items-center gap-1"
+                class="bg-background-tertiary text-foreground-primary hover:bg-background-quaternary px-3 py-1 rounded-md text-sm font-medium transition-colors flex items-center gap-1"
               >
                 <span>{tag}</span>
-                <span class="text-gray-500 bg-gray-200 text-xs px-1.5 py-0.5 rounded-full">{count}</span>
+                <span class="text-foreground-tertiary bg-background-quaternary text-xs px-1.5 py-0.5 rounded-full">{count}</span>
               </a>
             );
           })
