@@ -1,42 +1,60 @@
 @import "tailwindcss";
+@import './theme/light.css';
+/*@import './theme/nord.css';*/
+
 @plugin '@tailwindcss/typography';
 
-/* CSS 변수 정의 */
-:root {
-  --color-primary: #3b82f6;
-  --color-primary-hover: #2563eb;
-  --color-primary-light: #dbeafe;
-  --color-gray-100: #f3f4f6;
-  --color-gray-200: #e5e7eb;
-  --color-gray-300: #d1d5db;
-  --color-gray-400: #9ca3af;
-  --color-gray-500: #6b7280;
-  --color-gray-800: #1f2937;
+@theme {
+    /* 시맨틱 색상 정의 (CSS 변수 기반) */
+    --color-background-primary: var(--theme-bg-primary);
+    --color-background-secondary: var(--theme-bg-secondary);
+    --color-background-tertiary: var(--theme-bg-tertiary);
+    --color-background-quaternary: var(--theme-bg-quaternary);
+
+    --color-foreground-primary: var(--theme-text-primary);
+    --color-foreground-secondary: var(--theme-text-secondary);
+    --color-foreground-tertiary: var(--theme-text-tertiary);
+    --color-foreground-quaternary: var(--theme-text-quaternary);
+
+    --color-accent-primary: var(--theme-accent-primary);
+    --color-accent-secondary: var(--theme-accent-secondary);
+
+    --color-border-primary: var(--theme-border-primary);
+    --color-border-secondary: var(--theme-border-secondary);
+
+    --color-surface-primary: var(--theme-surface-primary);
+    --color-surface-secondary: var(--theme-surface-secondary);
+    
+    /* 특수 용도 색상 */
+    --color-overlay-dark: var(--theme-overlay-dark);
+    --color-overlay-light: var(--theme-overlay-light);
+    --color-highlight: var(--theme-highlight);
+    --color-banner-bg: var(--theme-banner-bg);
+    --color-modal-backdrop: var(--theme-modal-backdrop);
 }
 
-/* 보조 텍스트 색상 */
+/* === 유틸리티 클래스 === */
 .text-secondary {
-  /* color: #4c576b; */
-  color: #4e5968;
+  color: var(--color-foreground-secondary);
 }
 
 .text-tag {
-  color: #5e81ac;
+  color: var(--color-accent-secondary);
 }
 
 /* 태그 스타일 */
 .tag-default {
-  background-color: var(--color-gray-100);
-  color: var(--color-gray-800);
+  background-color: var(--color-background-secondary);
+  color: var(--color-foreground-primary);
 }
 
 .tag-default:hover {
-  background-color: var(--color-gray-200);
+  background-color: var(--color-background-tertiary);
 }
 
 .tag-active {
-  background-color: #5e81ac;
-  color: white;
+  background-color: var(--color-accent-secondary);
+  color: var(--color-background-primary);
   cursor: default;
 }
 
@@ -51,14 +69,14 @@
 }
 
 ::-webkit-scrollbar-thumb {
-  background-color: var(--color-gray-300);
+  background-color: var(--color-border-secondary);
   border-radius: 20px;
   border: 3px solid transparent;
   background-clip: content-box;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background-color: var(--color-gray-400);
+  background-color: var(--color-foreground-tertiary);
 }
 
 /* Prevent layout shift */
