@@ -26,9 +26,9 @@ function formatDate(date: Date) {
         <Image
           src={post.data.heroImage}
           alt={post.data.title}
-          class="w-full h-64 sm:h-80 object-cover rounded-lg"
-          width={800}
-          height={320}
+          class="w-full aspect-[16/10] object-cover rounded-2xl"
+          width={1200}
+          height={750}
           loading="eager"
         />
       </div>
@@ -57,7 +57,7 @@ function formatDate(date: Date) {
       {post.data.tags.map((tag) => (
         <a
           href={`/@/${tag}/1`}
-          class="bg-background-tertiary text-foreground-primary hover:bg-background-quaternary px-3 py-1 rounded-md text-sm font-medium transition-colors flex items-center gap-1 no-underline"
+          class="bg-background-tertiary text-foreground-primary hover:bg-background-quaternary px-3 py-1 rounded-md text-sm font-medium transition-colors flex items-center gap-1"
         >
           <span>{tag}</span>
         </a>
