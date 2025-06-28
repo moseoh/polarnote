@@ -1,6 +1,5 @@
 @import "tailwindcss";
 @import './theme/light.css';
-/*@import './theme/nord.css';*/
 
 @plugin '@tailwindcss/typography';
 
