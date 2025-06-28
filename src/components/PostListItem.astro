@@ -19,9 +19,9 @@ function formatDate(date: Date) {
 
 <a
   href={`/posts/${post.slug}`}
-  class="group grid md:grid-cols-[1fr_240px] gap-8 items-center"
+  class="group grid md:grid-cols-[1fr_200px] gap-8 items-start"
 >
-  <div>
+  <div class="flex flex-col justify-start">
     <h2 class="text-2xl font-bold group-hover:text-accent-primary transition-colors">
       {post.data.title}
     </h2>
@@ -35,14 +35,14 @@ function formatDate(date: Date) {
       <span>{post.data.author.join(', ')}</span>
     </div>
   </div>
-  <div class="w-full h-40 bg-background-secondary rounded-lg overflow-hidden">
+  <div class="w-full aspect-[16/10] bg-background-secondary rounded-2xl overflow-hidden">
     {post.data.heroImage ? (
       <Image
         src={post.data.heroImage}
         alt={post.data.title}
         class="w-full h-full object-cover"
         width={240}
-        height={160}
+        height={150}
         loading="eager"
       />
     ) : (
@@ -51,7 +51,7 @@ function formatDate(date: Date) {
         alt={post.data.title}
         class="w-full h-full object-cover"
         width={240}
-        height={160}
+        height={150}
         loading="eager"
       />
     )}
