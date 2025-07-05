@@ -6,29 +6,23 @@ import { logger } from "./reporter";
 import type { PostProps } from "./types";
 import { config } from "./config";
 
-// Variable to store the instance, initially null
-let n2m: NotionConverter | null = null;
-
 /**
- * Quietly initializes and returns NotionConverter instance.
- * (Singleton pattern)
+ * Creates and returns NotionConverter instance for a specific post.
  */
-const getN2mInstance = (): NotionConverter => {
-  if (n2m) return n2m;
-
+const getN2mInstance = (postSlug: string): NotionConverter => {
+  // Create a new instance for each post to handle media in post-specific folders
   try {
-    n2m = new NotionConverter(notion).downloadMediaTo({
-      outputDir: config.fs.mediaDir,
-      // transformPath: (localPath) => {
-      //   return path.join(config.fs.mediaDir, localPath);
-      // },
+    const postMediaDir = path.join(config.fs.contentDir, postSlug);
+    return new NotionConverter(notion).downloadMediaTo({
+      outputDir: postMediaDir,
+      transformPath: (localPath) => {
+        return `./${path.basename(localPath)}`;
+      },
     });
   } catch (error) {
     logger.error("Failed to initialize NotionConverter.", error);
     throw error;
   }
-
-  return n2m;
 };
 
 /**
@@ -55,7 +49,7 @@ function createFrontmatter(props: PostProps): string {
 }
 
 /**
- * Saves a single post as a Markdown file.
+ * Saves a single post as a Markdown file in its own folder.
  * @param post - Post data to save (PostProps)
  * @param contentDir - Directory path to save to
  */
@@ -67,12 +61,16 @@ export async function savePostAsMarkdown(post: PostProps, contentDir: string) {
       (console as any)[key] = () => {};
     });
 
-    const converter = getN2mInstance(); // Get instance when needed.
+    // Create post-specific folder
+    const postDir = path.join(contentDir, post.slug);
+    await fs.mkdir(postDir, { recursive: true });
+
+    const converter = getN2mInstance(post.slug); // Get instance with post-specific media dir
     const { content: markdownBody } = await converter.convert(post.id);
 
     const frontmatter = createFrontmatter(post);
     const fullContent = `${frontmatter}\n\n${markdownBody}`;
-    const filePath = path.join(contentDir, `${post.slug}.md`);
+    const filePath = path.join(postDir, 'index.md');
     await fs.writeFile(filePath, fullContent);
   } catch (error) {
     // Restore console even if error occurs

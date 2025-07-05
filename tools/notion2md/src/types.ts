@@ -1,37 +1,24 @@
-import { notion } from "./notion";
+import {notion} from "./notion";
 
-// Extract types from Notion API function return values for centralized management.
+// Extract types from the Notion API function return values for centralized management.
 type QueryDatabaseResponse = Awaited<ReturnType<typeof notion.databases.query>>;
 export type PageObject = Extract<
-  QueryDatabaseResponse["results"][number],
-  { url: string }
+    QueryDatabaseResponse["results"][number],
+    { url: string }
 >;
 
-export interface PostProps {
-  id: string;
-  title: string;
-  slug: string;
-  date: string | null;
-  createdAt: string;
-  thumbnail: string | null;
-  category: string | null;
-  tags: string[];
-  summary: string;
-  updatedAt: string;
-  author: string[];
-  draft: boolean;
-}
+export { PostProps } from "../../../types/content.js";
 
 /**
- * Type for individual entries to be stored in cache file
+ * Type for individual entries to be stored in the cache file
  */
 export interface CacheEntry {
-  updatedAt: string;
-  title: string;
-  slug: string;
+    updatedAt: string;
+    title: string;
+    slug: string;
 }
 
 /**
- * Type for entire cache data
+ * Type for entire cache data by id
  */
 export type CacheData = Record<string, CacheEntry>;

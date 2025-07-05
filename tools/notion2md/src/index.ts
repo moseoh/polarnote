@@ -58,7 +58,7 @@ async function planFileOperations(
       postsToCreate.push(post);
       continue;
     }
-    const filePath = path.join(config.fs.contentDir, `${post.slug}.md`);
+    const filePath = path.join(config.fs.contentDir, post.slug, 'index.md');
     const fileExists = await fs
       .access(filePath)
       .then(() => true)
@@ -75,14 +75,24 @@ async function planFileOperations(
     }
   }
 
-  const expectedFileNames = new Set(validPosts.map((p) => `${p.slug}.md`));
-  const allFilesInDir = await fs.readdir(config.fs.contentDir).catch(() => []);
-  const actualMarkdownFiles = allFilesInDir.filter((f) => f.endsWith(".md"));
-  const filesToDelete = actualMarkdownFiles.filter(
-    (fileName) => !expectedFileNames.has(fileName)
+  const expectedFolderNames = new Set(validPosts.map((p) => p.slug));
+  const allItemsInDir = await fs.readdir(config.fs.contentDir).catch(() => []);
+  const actualFolders = [];
+  
+  // Check which items are actually directories
+  for (const item of allItemsInDir) {
+    const itemPath = path.join(config.fs.contentDir, item);
+    const stat = await fs.stat(itemPath).catch(() => null);
+    if (stat && stat.isDirectory()) {
+      actualFolders.push(item);
+    }
+  }
+  
+  const foldersToDelete = actualFolders.filter(
+    (folderName) => !expectedFolderNames.has(folderName)
   );
 
-  return { postsToCreate, postsToUpdate, upToDateCount, filesToDelete };
+  return { postsToCreate, postsToUpdate, upToDateCount, filesToDelete: foldersToDelete };
 }
 
 function createNewCache(validPosts: PostProps[]): CacheData {
@@ -115,7 +125,7 @@ async function main() {
       ...postsToCreate.map((p) => savePostAsMarkdown(p, config.fs.contentDir)),
       ...postsToUpdate.map((p) => savePostAsMarkdown(p, config.fs.contentDir)),
       ...filesToDelete.map((f) =>
-        fs.unlink(path.join(config.fs.contentDir, f))
+        fs.rm(path.join(config.fs.contentDir, f), { recursive: true, force: true })
       ),
     ];
     await Promise.all(operations).catch((err) =>

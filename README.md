@@ -46,3 +46,20 @@ All commands are run from the root of the project, from a terminal:
 ## 👀 Want to learn more?
 
 Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+
+## Generate slug use by title prompt
+
+These are blog titles. I need English URL slugs for each one when deploying. Please create them and return only the slugs without any additional text.
+Slug generation rules:
+
+- Lowercase with hyphens instead of spaces
+- Include key terms for SEO
+- Remove special characters and emojis
+- Keep them concise but descriptive
+- Follow standard URL slug conventions
+- Use English only (translate Korean terms appropriately)
+- Avoid unnecessary stop words (a, an, the, is, etc.)
+- Maximum 60 characters for optimal SEO
+- No consecutive hyphens or leading/trailing hyphens
+- Make it human-readable and memorable
+- Use meaningful keywords that represent the content

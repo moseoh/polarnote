@@ -94,7 +94,7 @@ html {
 
 /* Global font application */
 body {
-    font-family: 'Nunito Sans', 'Nanum Gothic', ui-sans-serif, system-ui, sans-serif;
+    font-family: ui-sans-serif, system-ui, sans-serif;
     font-weight: 600;
 }
 

@@ -25,7 +25,11 @@ export async function getPosts(databaseId: string): Promise<PostProps[]> {
       },
       sorts: [
         {
-          property: "date",
+          property: "publishedAt",
+          direction: "descending",
+        },
+        {
+          property: "createdAt",
           direction: "descending",
         },
       ],

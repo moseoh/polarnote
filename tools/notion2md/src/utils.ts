@@ -69,16 +69,16 @@ export const parsePageProperties = (page: PageObject): PostProps => {
 
   return {
     id: page.id,
+    draft: getCheckbox(properties.draft),
     title,
-    slug: slugify(title) || page.id,
-    date: getDate(properties.date),
-    createdAt: getCreatedTime(properties.createdAt),
-    thumbnail: getFiles(properties.thumbnail),
+    slug: getRichText(properties.slug) || page.id,
     category: getSelect(properties.category),
     tags: getMultiSelect(properties.tags),
     summary: getRichText(properties.summary),
-    updatedAt: getLastEditedTime(properties.updatedAt),
     author: getPeople(properties.author),
-    draft: getCheckbox(properties.draft),
+    heroImage: getFiles(properties.heroImage),
+    publishedAt: getDate(properties.publishedAt),
+    createdAt: getCreatedTime(properties.createdAt),
+    updatedAt: getLastEditedTime(properties.updatedAt),
   };
 };

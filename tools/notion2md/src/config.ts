@@ -18,8 +18,8 @@ export const config = {
     databaseId: getEnv("DATABASE_ID"),
   },
   fs: {
-    contentDir: path.join("./", getEnv("CONTENT_DIR", "public/content")),
-    mediaDir: path.join("./", getEnv("MEDIA_DIR", "public/media")),
+    contentDir: path.join("../../src/content/posts"),
+    mediaDir: path.join("../../src/content/posts"), // Media will be in individual post folders
     cacheDir: path.join("./", ".cache"),
     cachePath: path.join("./", ".cache", "cache.json"),
   },
