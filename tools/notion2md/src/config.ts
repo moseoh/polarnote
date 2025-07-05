@@ -9,7 +9,7 @@ function getEnv(key: string, defaultValue?: string): string {
   if (defaultValue !== undefined) {
     return defaultValue;
   }
-  throw new Error(`환경 변수 ${key}가 설정되지 않았습니다.`);
+  throw new Error(`Environment variable ${key} is not set.`);
 }
 
 export const config = {

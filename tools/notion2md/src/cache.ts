@@ -4,7 +4,7 @@ import type { CacheData } from "./types";
 import { logger } from "./reporter";
 
 /**
- * .cache/cache.json 파일에서 캐시 데이터를 불러옵니다.
+ * Loads cache data from .cache/cache.json file.
  */
 export async function loadCache(): Promise<CacheData> {
   try {
@@ -21,7 +21,7 @@ export async function loadCache(): Promise<CacheData> {
 }
 
 /**
- * 캐시 데이터를 .cache/cache.json 파일에 저장합니다.
+ * Saves cache data to .cache/cache.json file.
  */
 export async function saveCache(data: CacheData): Promise<void> {
   try {

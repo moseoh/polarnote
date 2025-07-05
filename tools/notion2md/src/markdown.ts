@@ -6,12 +6,12 @@ import { logger } from "./reporter";
 import type { PostProps } from "./types";
 import { config } from "./config";
 
-// 인스턴스를 저장할 변수, 처음에는 null
+// Variable to store the instance, initially null
 let n2m: NotionConverter | null = null;
 
 /**
- * NotionConverter 인스턴스를 조용히 초기화하고 반환합니다.
- * (싱글톤 패턴)
+ * Quietly initializes and returns NotionConverter instance.
+ * (Singleton pattern)
  */
 const getN2mInstance = (): NotionConverter => {
   if (n2m) return n2m;
@@ -32,12 +32,12 @@ const getN2mInstance = (): NotionConverter => {
 };
 
 /**
- * 객체를 YAML Frontmatter 형식의 문자열로 변환합니다.
- * @param data - 변환할 객체
- * @returns YAML 문자열
+ * Converts object to YAML Frontmatter format string.
+ * @param data - Object to convert
+ * @returns YAML string
  */
 function createFrontmatter(props: PostProps): string {
-  // id는 파일명이므로 frontmatter에서 제외합니다.
+  // id is used as filename, so exclude it from frontmatter.
   const { id, ...rest } = props;
 
   const lines = Object.entries(rest).map(([key, value]) => {
@@ -47,7 +47,7 @@ function createFrontmatter(props: PostProps): string {
 
       return `${key}:\n${items}`;
     }
-    // JSON.stringify를 사용하여 문자열에 따옴표를 추가하고 특수 문자를 이스케이프합니다.
+    // Use JSON.stringify to add quotes to strings and escape special characters.
     return `${key}: ${JSON.stringify(value)}`;
   });
 
@@ -55,19 +55,19 @@ function createFrontmatter(props: PostProps): string {
 }
 
 /**
- * 단일 게시물을 Markdown 파일로 저장합니다.
- * @param post - 저장할 게시물 데이터 (PostProps)
- * @param contentDir - 저장할 디렉토리 경로
+ * Saves a single post as a Markdown file.
+ * @param post - Post data to save (PostProps)
+ * @param contentDir - Directory path to save to
  */
 export async function savePostAsMarkdown(post: PostProps, contentDir: string) {
   const originalConsole = { ...console };
   try {
-    // 라이브러리 로그를 억제하기 위해 console을 임시로 비활성화
+    // Temporarily disable console to suppress library logs
     Object.keys(console).forEach((key) => {
       (console as any)[key] = () => {};
     });
 
-    const converter = getN2mInstance(); // 필요할 때 인스턴스를 가져옵니다.
+    const converter = getN2mInstance(); // Get instance when needed.
     const { content: markdownBody } = await converter.convert(post.id);
 
     const frontmatter = createFrontmatter(post);
@@ -75,7 +75,7 @@ export async function savePostAsMarkdown(post: PostProps, contentDir: string) {
     const filePath = path.join(contentDir, `${post.slug}.md`);
     await fs.writeFile(filePath, fullContent);
   } catch (error) {
-    // 에러 발생 시에도 console 복구
+    // Restore console even if error occurs
     Object.assign(console, originalConsole);
     logger.error(`- Failed to save: ${post.slug}`, error);
   }

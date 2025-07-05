@@ -1,6 +1,6 @@
 import { PostProps, PageObject } from "./types";
 
-// Notion API의 각 속성 타입에서 값을 추출하는 헬퍼 함수들
+// Helper functions to extract values from each property type of Notion API
 const getTitle = (prop: any): string => {
   return prop.title?.[0]?.plain_text ?? "";
 };
@@ -14,7 +14,7 @@ const getCreatedTime = (prop: any): string => {
 };
 
 const getFiles = (prop: any): string | null => {
-  // 첫 번째 파일의 URL만 반환하도록 단순화
+  // Simplified to return only the first file's URL
   return prop.files?.[0]?.file?.url ?? prop.files?.[0]?.external?.url ?? null;
 };
 
@@ -43,8 +43,8 @@ const getCheckbox = (prop: any): boolean => {
 };
 
 /**
- * 문자열을 URL 친화적인 슬러그로 변환합니다.
- * @param text - 변환할 문자열
+ * Converts string to URL-friendly slug.
+ * @param text - String to convert
  */
 export function slugify(text: string): string {
   if (!text) return "";
@@ -52,15 +52,15 @@ export function slugify(text: string): string {
     .toString()
     .toLowerCase()
     .trim()
-    .replace(/\s+/g, "-") // 공백을 -으로 교체
-    .replace(/[^\w-]+/g, "") // 단어 문자, 하이픈 외 모든 문자 제거
-    .replace(/--+/g, "-"); // 여러 개의 -를 단일 -로 교체
+    .replace(/\s+/g, "-") // Replace spaces with -
+    .replace(/[^\w-]+/g, "") // Remove all characters except word characters and hyphens
+    .replace(/--+/g, "-"); // Replace multiple - with single -
 }
 
 /**
- * Notion 페이지 객체의 속성을 PostProps 타입으로 파싱합니다.
- * @param page - Notion API로부터 받은 페이지 객체
- * @returns 변환된 PostProps 객체
+ * Parses Notion page object properties to PostProps type.
+ * @param page - Page object received from Notion API
+ * @returns Converted PostProps object
  */
 export const parsePageProperties = (page: PageObject): PostProps => {
   const { properties } = page;

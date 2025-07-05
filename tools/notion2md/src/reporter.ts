@@ -1,7 +1,7 @@
 /**
- * 애플리케이션 전체에서 사용할 커스텀 로거.
- * 전역 console 객체가 다른 라이브러리에 의해 덮어쓰여지는 것을 방지하고,
- * 일관된 로깅을 제공합니다.
+ * Custom logger for use throughout the application.
+ * Prevents the global console object from being overwritten by other libraries,
+ * and provides consistent logging.
  */
 export const logger = {
   log: (...args: unknown[]) => console.log(...args),

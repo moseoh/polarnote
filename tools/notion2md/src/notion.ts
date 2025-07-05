@@ -8,9 +8,9 @@ export const notion = new Client({
 });
 
 /**
- * 데이터베이스에서 모든 게시물(페이지)을 가져와 PostProps 형태로 변환합니다.
- * @param databaseId - 쿼리할 데이터베이스의 ID
- * @returns PostProps 객체 배열
+ * Fetches all posts (pages) from database and converts them to PostProps format.
+ * @param databaseId - ID of the database to query
+ * @returns Array of PostProps objects
  */
 export async function getPosts(databaseId: string): Promise<PostProps[]> {
   const posts: PostProps[] = [];

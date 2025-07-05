@@ -1,6 +1,6 @@
 import { notion } from "./notion";
 
-// Notion API 함수의 반환 값에서 타입을 추출하여 중앙에서 관리합니다.
+// Extract types from Notion API function return values for centralized management.
 type QueryDatabaseResponse = Awaited<ReturnType<typeof notion.databases.query>>;
 export type PageObject = Extract<
   QueryDatabaseResponse["results"][number],
@@ -23,7 +23,7 @@ export interface PostProps {
 }
 
 /**
- * 캐시 파일에 저장될 개별 항목의 타입
+ * Type for individual entries to be stored in cache file
  */
 export interface CacheEntry {
   updatedAt: string;
@@ -32,6 +32,6 @@ export interface CacheEntry {
 }
 
 /**
- * 전체 캐시 데이터의 타입
+ * Type for entire cache data
  */
 export type CacheData = Record<string, CacheEntry>;
