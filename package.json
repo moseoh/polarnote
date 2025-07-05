@@ -4,9 +4,10 @@
   "version": "0.0.1",
   "scripts": {
     "dev": "astro dev",
-    "build": "astro build",
-    "preview": "astro build && astro preview",
-    "astro": "astro"
+    "build": "pnpm sync && astro build",
+    "preview": "pnpm build && astro preview",
+    "astro": "astro",
+    "sync": "cd tools/notion2md && npm run start"
   },
   "dependencies": {
     "@lucide/astro": "^0.515.0",

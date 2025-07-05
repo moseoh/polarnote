@@ -7,7 +7,6 @@ export interface Props {
 }
 
 const { post } = Astro.props;
-const placeholderImage = 'https://via.placeholder.com/240x160.png?text=No+Image';
 
 function formatDate(date: Date) {
   const year = date.getFullYear();
@@ -22,7 +21,7 @@ function formatDate(date: Date) {
   class="group grid md:grid-cols-[1fr_200px] gap-8 items-start"
 >
   <div class="flex flex-col justify-start">
-    <h2 class="text-2xl font-bold group-hover:text-accent-primary transition-colors">
+    <h2 class="text-xl font-bold group-hover:text-accent-primary transition-colors">
       {post.data.title}
     </h2>
     <p class="text-foreground-secondary mt-2">{post.data.summary}</p>
