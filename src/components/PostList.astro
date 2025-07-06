@@ -11,7 +11,7 @@ const { posts } = Astro.props;
 
 <div class="w-full">
   <!-- Posts List -->
-  <div class="space-y-12">
+  <div class="space-y-12 md:space-y-12">
     {posts.map((post) => <PostListItem post={post} />)}
   </div>
 </div> 
