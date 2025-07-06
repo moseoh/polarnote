@@ -1,12 +1,12 @@
 name: Deploy to Cloudflare
 
 on:
-  schedule:
-    # Run daily at midnight KST (15:00 UTC = 00:00 KST+9)
-    - cron: '0 15 * * *'
-  
-  # Manual trigger option (uncomment to enable)
-  # workflow_dispatch:
+# Manual trigger option (uncomment to enable)
+  workflow_dispatch:
+#  Run daily at midnight KST (15:00 UTC = 00:00 KST+9)
+#  schedule:
+#    - cron: '0 15 * * *'
+
 
 jobs:
   deploy:
