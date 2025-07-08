@@ -5,11 +5,14 @@ site:
   url: "https://polarnote.pages.dev"
 
 # Social Links
+# Configure your social media links below
+# To disable a social link: set to null or remove the field entirely
+# Example: twitter: null (disabled) or github: "https://github.com/username" (enabled)
 social:
-  github: "none"
-  linkedin: "none"
-  twitter: "none"
-  email: "none"
+  github: "github_url"
+  linkedin: "linkedIn_url"
+  twitter: null
+  email: "your_email"
 
 # Layout Configuration
 layout:
