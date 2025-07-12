@@ -3,6 +3,7 @@ import {defineConfig} from "astro/config";
 import {execSync} from "child_process";
 import tailwindcss from "@tailwindcss/vite";
 import sitemap from "@astrojs/sitemap";
+import expressiveCode from "astro-expressive-code";
 import * as yaml from "js-yaml";
 import {readFileSync} from "fs";
 
@@ -28,6 +29,24 @@ export default defineConfig({
         plugins: [tailwindcss()],
     },
     integrations: [
+        expressiveCode({
+            themes: ['one-dark-pro'],
+            removeUnusedThemes: false,
+            frames: {
+                removeCommentsWhenCopyingTerminalFrames: true
+            },
+            styleOverrides: {
+                codeBackground: '#303338',
+                frames: {
+                    frameBoxShadowCssValue: 'none',
+                },
+            },
+            defaultProps: {
+                frame: "code",
+                wrap: false,
+            },
+            plugins: [],
+        }),
         sitemap(),
         {
             name: "pagefind",
