@@ -137,10 +137,32 @@ body {
     margin-bottom: 0;
 }
 
+/* 인라인 코드 스타일 커스터마이징 */
 .prose code {
     overflow-wrap: break-word;
     word-break: break-word;
     white-space: pre-wrap;
+    background-color: var(--color-background-tertiary);
+    color: var(--color-foreground-primary);
+    padding: 0.2em 0.2em;
+    border-radius: 0.25rem;
+    font-size: 0.875em;
+    font-weight: 500;
+}
+
+/* 백틱 기호 숨기기 */
+.prose code::before,
+.prose code::after {
+    content: none !important;
+}
+
+/* 코드 블록은 제외 (pre 안의 code) */
+.prose pre code {
+    background-color: transparent;
+    padding: 0;
+    border-radius: 0;
+    font-size: inherit;
+    font-weight: inherit;
 }
 
 /* notion-to-md callout style (nested blockquote) start */
