@@ -144,7 +144,7 @@ body {
     white-space: pre-wrap;
     background-color: var(--color-background-tertiary);
     color: var(--color-foreground-primary);
-    padding: 0.2em 0.2em;
+    padding: 0.2em 0.4em;
     border-radius: 0.25rem;
     font-size: 0.875em;
     font-weight: 500;
@@ -163,6 +163,48 @@ body {
     border-radius: 0;
     font-size: inherit;
     font-weight: inherit;
+}
+
+/* 전체적인 간격 조정 */
+.prose h1,
+.prose h2,
+.prose h3,
+.prose h4,
+.prose h5,
+.prose h6 {
+    margin-bottom: 1em;
+}
+
+.prose h1:first-child,
+.prose h2:first-child,
+.prose h3:first-child,
+.prose h4:first-child,
+.prose h5:first-child,
+.prose h6:first-child {
+    margin-top: 0;
+}
+
+.prose p {
+    margin-top: 1em;
+    margin-bottom: 1em;
+    line-height: 1.75;
+}
+
+.prose ul,
+.prose ol {
+    margin-top: 1em;
+    margin-bottom: 1em;
+}
+
+.prose ul li,
+.prose ol li {
+    margin-top: 0.25em;
+    margin-bottom: 0.0em;
+}
+
+.prose blockquote {
+    margin-top: 1em;
+    margin-bottom: 1em;
 }
 
 /* notion-to-md callout style (nested blockquote) start */
