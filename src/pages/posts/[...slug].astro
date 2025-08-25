@@ -1,35 +1,54 @@
 ---
-import type { CollectionEntry } from 'astro:content';
-import { getCollection } from 'astro:content';
-import MainLayout from '../../layouts/MainLayout.astro';
+import type {CollectionEntry} from 'astro:content';
+import {getCollection} from 'astro:content';
 import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
 import Post from '../../components/Post.astro';
+import SEO from '../../components/SEO.astro';
 import {SITE} from "../../config";
+import {generatePageTitle} from '../../utils/seo';
+import '../../styles/global.css';
 
 export async function getStaticPaths() {
-  const posts = await getCollection('posts', ({ data }) => {
-    return data.draft !== true;
-  });
+    const posts = await getCollection('posts', ({data}) => {
+        return data.draft !== true;
+    });
 
-  return posts.map((post) => ({
-    params: { slug: post.slug },
-    props: { post },
-  }));
+    return posts.map((post) => ({
+        params: {slug: post.slug},
+        props: {post},
+    }));
 }
 
-const { post } = Astro.props as { post: CollectionEntry<'posts'> };
+const {post} = Astro.props as { post: CollectionEntry<'posts'> };
 
-// OG 메타데이터 준비
-const ogTitle = `${post.data.title}`;
+// SEO 메타데이터 준비
+const pageTitle = generatePageTitle(post.data.title);
 const ogDescription = post.data.summary || SITE.description;
-const ogImage = post.data.heroImage || undefined; // 포스트 히어로 이미지 객체 전달
+const ogImage = post.data.heroImage || undefined;
 ---
-<MainLayout
-  title={ogTitle}
-  description={ogDescription}
-  ogImage={ogImage}
-  ogType="article"
->
-  <Header />
-  <Post post={post} />
-</MainLayout> 
+<!doctype html>
+<html lang="ko">
+<head>
+    <title>{pageTitle}</title>
+    <SEO
+            title={pageTitle}
+            description={ogDescription}
+            ogImage={ogImage}
+            ogType="article"
+            author={post.data.author}
+            publishedAt={post.data.publishedAt || post.data.createdAt}
+            updatedAt={post.data.updatedAt || undefined}
+            tags={post.data.tags}
+    />
+</head>
+<body class="bg-background-primary text-foreground-primary">
+<div class="min-h-screen flex flex-col">
+    <div class="flex-1">
+        <Header/>
+        <Post post={post}/>
+    </div>
+    <Footer/>
+</div>
+</body>
+</html> 

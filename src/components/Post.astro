@@ -26,10 +26,14 @@ function formatDate(date: Date) {
       <div class="px-4 sm:px-6 lg:px-8">
         <Image
           src={post.data.heroImage}
-          alt={post.data.title}
+          alt={`${post.data.title} - Hero Image`}
           class="w-full aspect-[16/10] object-cover rounded-2xl"
           width={1200}
+          height={750}
           loading="eager"
+          decoding="async"
+          format="webp"
+          quality={90}
         />
       </div>
     </div>

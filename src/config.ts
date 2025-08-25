@@ -17,6 +17,7 @@ export const SITE = {
   title: config.site.title,
   description: config.site.description,
   url: config.site.url,
+  author: config.site.author || "Author",
 };
 
 export const SOCIAL = {

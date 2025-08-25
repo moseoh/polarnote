@@ -3,6 +3,7 @@ export interface SiteConfig {
     title: string;
     description: string;
     url: string;
+    author?: string;
   };
   social: {
     github?: string | undefined | null;

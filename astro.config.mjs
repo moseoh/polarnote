@@ -31,15 +31,15 @@ export default defineConfig({
     },
     integrations: [
         expressiveCode({
-            themes: ['one-dark-pro'],
+            themes: ["one-dark-pro"],
             removeUnusedThemes: false,
             frames: {
-                removeCommentsWhenCopyingTerminalFrames: true
+                removeCommentsWhenCopyingTerminalFrames: true,
             },
             styleOverrides: {
-                codeBackground: '#303338',
+                codeBackground: "#303338",
                 frames: {
-                    frameBoxShadowCssValue: 'none',
+                    frameBoxShadowCssValue: "none",
                 },
             },
             defaultProps: {
@@ -48,7 +48,31 @@ export default defineConfig({
             },
             plugins: [],
         }),
-        sitemap(),
+        sitemap({
+            serialize(item) {
+                // 홈페이지
+                if (item.url === config.site.url + "/") {
+                    item.priority = 1.0;
+                }
+                // 블로그 포스트
+                else if (item.url.includes("/posts/")) {
+                    item.priority = 0.9;
+                }
+                // 카테고리/태그 페이지
+                else if (item.url.match(/\/@\/.+\//)) {
+                    item.priority = 0.7;
+                }
+                // 기타 페이지
+                else {
+                    item.priority = 0.5;
+                }
+                return item;
+            },
+            filter: (page) => {
+                // _astro 경로 제외
+                return !page.includes("/_astro/");
+            },
+        }),
         {
             name: "pagefind",
             hooks: {

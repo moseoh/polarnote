@@ -25,11 +25,14 @@ function formatDate(date: Date) {
     {post.data.heroImage && (
       <Image
         src={post.data.heroImage}
-        alt={post.data.title}
+        alt={`${post.data.title} - Thumbnail`}
         class="w-full h-full object-cover group-hover:scale-115 transition-transform duration-450 ease-out"
         widths={[1200, 400]}
         sizes="(max-width: 768px) 1200px, 400px"
-        loading="eager"
+        loading="lazy"
+        decoding="async"
+        format="webp"
+        quality={85}
       />
     )}
   </div>

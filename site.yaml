@@ -3,6 +3,7 @@ site:
   title: "polarnote"
   description: "A personal blog theme for Astro."
   url: "https://polarnote.pages.dev"
+  author: "Author"
 
 # Social Links
 # Configure your social media links below
