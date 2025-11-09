@@ -9,6 +9,13 @@
     font-display: swap;
 }
 
+@font-face {
+    font-family: 'Inter';
+    src: url('/fonts/Inter-VariableFont_opsz,wght.ttf') format('truetype');
+    font-weight: 100 900;
+    font-display: swap;
+}
+
 @plugin '@tailwindcss/typography';
 
 @theme {
@@ -93,7 +100,7 @@ html {
 
 /* Global font application */
 body {
-    font-family: ui-sans-serif, system-ui, sans-serif;
+    font-family: -apple-system, BlinkMacSystemFont, 'Inter', system-ui, sans-serif;
 }
 
 /* Typography prose customization */
