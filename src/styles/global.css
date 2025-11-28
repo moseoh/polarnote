@@ -1,175 +1,202 @@
 @import "tailwindcss";
-@import './theme/light.css';
+@import "./theme/light.css";
 
+/* Used in Site Title */
 /* Comfortaa Font Face */
 @font-face {
-    font-family: 'Comfortaa';
-    src: url('/fonts/Comfortaa-VariableFont_wght.ttf') format('truetype');
-    font-weight: 300 700;
-    font-display: swap;
+  font-family: "Comfortaa";
+  src: url("/fonts/Comfortaa-VariableFont_wght.ttf") format("truetype");
+  font-weight: 300 700;
+  font-display: swap;
+}
+
+/* IBM Plex Sans KR Font Face */
+@font-face {
+  font-family: "IBM Plex Sans KR";
+  src: url("/fonts/IBMPlexSansKR-ExtraLight.woff2") format("truetype");
+  font-weight: 200;
+  font-style: normal;
+  font-display: swap;
 }
 
 @font-face {
-    font-family: 'Inter';
-    src: url('/fonts/Inter-VariableFont_opsz,wght.ttf') format('truetype');
-    font-weight: 100 900;
-    font-display: swap;
+  font-family: "IBM Plex Sans KR";
+  src: url("/fonts/IBMPlexSansKR-Light.woff2") format("truetype");
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "IBM Plex Sans KR";
+  src: url("/fonts/IBMPlexSansKR-Regular.woff2") format("truetype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "IBM Plex Sans KR";
+  src: url("/fonts/IBMPlexSansKR-SemiBold.woff2") format("truetype");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
 }
 
 @plugin '@tailwindcss/typography';
 
 @theme {
-    /* 시맨틱 색상 정의 (CSS 변수 기반) */
-    --color-background-primary: var(--theme-bg-primary);
-    --color-background-secondary: var(--theme-bg-secondary);
-    --color-background-tertiary: var(--theme-bg-tertiary);
-    --color-background-quaternary: var(--theme-bg-quaternary);
+  /* 시맨틱 색상 정의 (CSS 변수 기반) */
+  --color-background-primary: var(--theme-bg-primary);
+  --color-background-secondary: var(--theme-bg-secondary);
+  --color-background-tertiary: var(--theme-bg-tertiary);
+  --color-background-quaternary: var(--theme-bg-quaternary);
 
-    --color-foreground-primary: var(--theme-text-primary);
-    --color-foreground-secondary: var(--theme-text-secondary);
-    --color-foreground-tertiary: var(--theme-text-tertiary);
-    --color-foreground-quaternary: var(--theme-text-quaternary);
+  --color-foreground-primary: var(--theme-text-primary);
+  --color-foreground-secondary: var(--theme-text-secondary);
+  --color-foreground-tertiary: var(--theme-text-tertiary);
+  --color-foreground-quaternary: var(--theme-text-quaternary);
 
-    --color-accent-primary: var(--theme-accent-primary);
-    --color-accent-secondary: var(--theme-accent-secondary);
+  --color-accent-primary: var(--theme-accent-primary);
+  --color-accent-secondary: var(--theme-accent-secondary);
 
-    --color-border-primary: var(--theme-border-primary);
-    --color-border-secondary: var(--theme-border-secondary);
+  --color-border-primary: var(--theme-border-primary);
+  --color-border-secondary: var(--theme-border-secondary);
 
-    --color-surface-primary: var(--theme-surface-primary);
-    --color-surface-secondary: var(--theme-surface-secondary);
+  --color-surface-primary: var(--theme-surface-primary);
+  --color-surface-secondary: var(--theme-surface-secondary);
 
-    /* 특수 용도 색상 */
-    --color-overlay-dark: var(--theme-overlay-dark);
-    --color-overlay-light: var(--theme-overlay-light);
-    --color-highlight: var(--theme-highlight);
-    --color-banner-bg: var(--theme-banner-bg);
-    --color-modal-backdrop: var(--theme-modal-backdrop);
+  /* 특수 용도 색상 */
+  --color-overlay-dark: var(--theme-overlay-dark);
+  --color-overlay-light: var(--theme-overlay-light);
+  --color-highlight: var(--theme-highlight);
+  --color-banner-bg: var(--theme-banner-bg);
+  --color-modal-backdrop: var(--theme-modal-backdrop);
 }
 
 /* === 유틸리티 클래스 === */
 .text-secondary {
-    color: var(--color-foreground-secondary);
+  color: var(--color-foreground-secondary);
 }
 
 .text-tag {
-    color: var(--color-accent-secondary);
+  color: var(--color-accent-secondary);
 }
 
 /* 태그 스타일 */
 .tag-default {
-    background-color: var(--color-background-secondary);
-    color: var(--color-foreground-primary);
+  background-color: var(--color-background-secondary);
+  color: var(--color-foreground-primary);
 }
 
 .tag-default:hover {
-    background-color: var(--color-background-tertiary);
+  background-color: var(--color-background-tertiary);
 }
 
 .tag-active {
-    background-color: var(--color-accent-secondary);
-    color: var(--color-background-primary);
-    cursor: default;
+  background-color: var(--color-accent-secondary);
+  color: var(--color-background-primary);
+  cursor: default;
 }
 
 /* Custom Scrollbar Styles */
 /* For Webkit-based browsers (Chrome, Safari and Opera) */
 ::-webkit-scrollbar {
-    width: 14px;
+  width: 14px;
 }
 
 ::-webkit-scrollbar-track {
-    background: transparent;
+  background: transparent;
 }
 
 ::-webkit-scrollbar-thumb {
-    background-color: var(--color-border-secondary);
-    border-radius: 20px;
-    border: 3px solid transparent;
-    background-clip: content-box;
+  background-color: var(--color-border-secondary);
+  border-radius: 20px;
+  border: 3px solid transparent;
+  background-clip: content-box;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-    background-color: var(--color-foreground-tertiary);
+  background-color: var(--color-foreground-tertiary);
 }
 
 /* Prevent layout shift */
 html {
-    overflow-y: scroll;
+  overflow-y: scroll;
 }
 
 /* Global font application */
 body {
-    font-family: -apple-system, BlinkMacSystemFont, 'Inter', system-ui, sans-serif;
+  font-family: "IBM Plex Sans KR", system-ui, sans-serif;
 }
 
 /* Typography prose customization */
 .prose {
-    --tw-prose-body: var(--color-foreground-primary);
-    --tw-prose-headings: var(--color-foreground-primary);
-    --tw-prose-lead: var(--color-foreground-secondary);
-    --tw-prose-links: var(--color-accent-primary);
-    --tw-prose-bold: var(--color-foreground-primary);
-    --tw-prose-counters: var(--color-foreground-secondary);
-    --tw-prose-bullets: var(--color-foreground-tertiary);
-    --tw-prose-hr: var(--color-border-primary);
-    --tw-prose-quotes: var(--color-foreground-primary);
-    --tw-prose-quote-borders: var(--color-border-secondary);
-    --tw-prose-captions: var(--color-foreground-secondary);
-    --tw-prose-code: var(--color-foreground-primary);
-    --tw-prose-pre-code: var(--color-foreground-primary);
-    --tw-prose-pre-bg: var(--color-background-secondary);
-    --tw-prose-th-borders: var(--color-border-secondary);
-    --tw-prose-td-borders: var(--color-border-primary);
+  --tw-prose-body: var(--color-foreground-primary);
+  --tw-prose-headings: var(--color-foreground-primary);
+  --tw-prose-lead: var(--color-foreground-secondary);
+  --tw-prose-links: var(--color-accent-primary);
+  --tw-prose-bold: var(--color-foreground-primary);
+  --tw-prose-counters: var(--color-foreground-secondary);
+  --tw-prose-bullets: var(--color-foreground-tertiary);
+  --tw-prose-hr: var(--color-border-primary);
+  --tw-prose-quotes: var(--color-foreground-primary);
+  --tw-prose-quote-borders: var(--color-border-secondary);
+  --tw-prose-captions: var(--color-foreground-secondary);
+  --tw-prose-code: var(--color-foreground-primary);
+  --tw-prose-pre-code: var(--color-foreground-primary);
+  --tw-prose-pre-bg: var(--color-background-secondary);
+  --tw-prose-th-borders: var(--color-border-secondary);
+  --tw-prose-td-borders: var(--color-border-primary);
 }
 
 .prose a {
-    text-decoration: none;
+  text-decoration: none;
 }
 
 .prose img,
 .prose video {
-    border-radius: .375rem;
+  border-radius: 0.375rem;
 }
 
 .prose ul > li,
 .prose ol > li {
-    margin-top: 0.25rem;
-    margin-bottom: 0.25rem;
+  margin-top: 0.25rem;
+  margin-bottom: 0.25rem;
 }
 
 .prose ul > li > p,
 .prose ol > li > p {
-    margin-top: 0;
-    margin-bottom: 0;
+  margin-top: 0;
+  margin-bottom: 0;
 }
 
 /* 인라인 코드 스타일 커스터마이징 */
 .prose code {
-    overflow-wrap: break-word;
-    word-break: break-word;
-    white-space: pre-wrap;
-    background-color: var(--color-background-tertiary);
-    color: var(--color-foreground-primary);
-    padding: 0.2em 0.4em;
-    border-radius: 0.25rem;
-    font-size: 0.875em;
-    font-weight: 500;
+  overflow-wrap: break-word;
+  word-break: break-word;
+  white-space: pre-wrap;
+  background-color: var(--color-background-tertiary);
+  color: var(--color-foreground-primary);
+  padding: 0.2em 0.4em;
+  border-radius: 0.25rem;
+  font-size: 0.875em;
+  font-weight: 500;
 }
 
 /* 백틱 기호 숨기기 */
 .prose code::before,
 .prose code::after {
-    content: none !important;
+  content: none !important;
 }
 
 /* 코드 블록은 제외 (pre 안의 code) */
 .prose pre code {
-    background-color: transparent;
-    padding: 0;
-    border-radius: 0;
-    font-size: inherit;
-    font-weight: inherit;
+  background-color: transparent;
+  padding: 0;
+  border-radius: 0;
+  font-size: inherit;
+  font-weight: inherit;
 }
 
 /* 전체적인 간격 조정 */
@@ -179,7 +206,7 @@ body {
 .prose h4,
 .prose h5,
 .prose h6 {
-    margin-bottom: 1em;
+  margin-bottom: 1em;
 }
 
 .prose h1:first-child,
@@ -188,49 +215,50 @@ body {
 .prose h4:first-child,
 .prose h5:first-child,
 .prose h6:first-child {
-    margin-top: 0;
+  margin-top: 0;
 }
 
 .prose p {
-    margin-top: 1em;
-    margin-bottom: 1em;
-    line-height: 1.75;
+  margin-top: 1em;
+  margin-bottom: 1em;
+  line-height: 1.75;
 }
 
 .prose ul,
 .prose ol {
-    margin-top: 1em;
-    margin-bottom: 1em;
+  margin-top: 1em;
+  margin-bottom: 1em;
 }
 
 .prose ul li,
 .prose ol li {
-    margin-top: 0.25em;
-    margin-bottom: 0.0em;
+  margin-top: 0.25em;
+  margin-bottom: 0em;
 }
 
 .prose blockquote {
-    margin-top: 1em;
-    margin-bottom: 1em;
+  margin-top: 1em;
+  margin-bottom: 1em;
 }
 
 /* notion-to-md callout style (nested blockquote) start */
 .prose blockquote:has(> blockquote) {
-    border-left: none;
-    background-color: transparent;
-    padding: 0;
-    margin: 0;
-    font-style: normal;
-    quotes: none;
+  border-left: none;
+  background-color: transparent;
+  padding: 0;
+  margin: 0;
+  font-style: normal;
+  quotes: none;
 }
 
 .prose blockquote > blockquote {
-    border-left: 4px solid color-mix(in srgb, var(--color-accent-primary) 60%, transparent);
-    background-color: var(--color-background-secondary);
-    padding: 1rem;
-    margin: 1rem 0;
-    border-radius: 0 0.375rem 0.375rem 0;
-    font-style: normal;
-    quotes: none;
+  border-left: 4px solid
+    color-mix(in srgb, var(--color-accent-primary) 60%, transparent);
+  background-color: var(--color-background-secondary);
+  padding: 1rem;
+  margin: 1rem 0;
+  border-radius: 0 0.375rem 0.375rem 0;
+  font-style: normal;
+  quotes: none;
 }
 /* notion-to-md callout style (nested blockquote) end */
