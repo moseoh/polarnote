@@ -15,8 +15,8 @@ importers:
         specifier: ^3.7.0
         version: 3.7.0
       '@lucide/astro':
-        specifier: ^0.515.0
-        version: 0.515.0(astro@5.10.1(@types/node@25.0.10)(jiti@2.6.1)(lightningcss@1.30.2)(rollup@4.43.0)(typescript@5.9.3))
+        specifier: ^0.563.0
+        version: 0.563.0(astro@5.10.1(@types/node@25.0.10)(jiti@2.6.1)(lightningcss@1.30.2)(rollup@4.43.0)(typescript@5.9.3))
       '@tailwindcss/vite':
         specifier: ^4.1.18
         version: 4.1.18(vite@6.3.5(@types/node@25.0.10)(jiti@2.6.1)(lightningcss@1.30.2))
@@ -529,8 +529,8 @@ packages:
   '@jridgewell/trace-mapping@0.3.9':
     resolution: {integrity: sha512-3Belt6tdc8bPgAtbcmdtNJlirVoTmEb5e2gC94PnkwEW9jI6CAHUeoG85tjWP5WquqfavoMtMwiG4P926ZKKuQ==}
 
-  '@lucide/astro@0.515.0':
-    resolution: {integrity: sha512-7zmKR6FGLhs3ZsRKsx48LNPbnRPthUzHt42yafiBttx9hNhncjxOYJK+P+OoEOrvijfz392BK9jNebk2boZzqA==}
+  '@lucide/astro@0.563.0':
+    resolution: {integrity: sha512-X9fNJvRR6pLJfkIEAFQkizWaNVvcduunJoFyR3fwPu30Y6jOu5S9k4k7HTSk3ZrEfqK2eFEqrBqqWH4fwSNKCg==}
     peerDependencies:
       astro: ^4 || ^5
 
@@ -2515,7 +2515,7 @@ snapshots:
       '@jridgewell/resolve-uri': 3.1.2
       '@jridgewell/sourcemap-codec': 1.5.5
 
-  '@lucide/astro@0.515.0(astro@5.10.1(@types/node@25.0.10)(jiti@2.6.1)(lightningcss@1.30.2)(rollup@4.43.0)(typescript@5.9.3))':
+  '@lucide/astro@0.563.0(astro@5.10.1(@types/node@25.0.10)(jiti@2.6.1)(lightningcss@1.30.2)(rollup@4.43.0)(typescript@5.9.3))':
     dependencies:
       astro: 5.10.1(@types/node@25.0.10)(jiti@2.6.1)(lightningcss@1.30.2)(rollup@4.43.0)(typescript@5.9.3)
 
