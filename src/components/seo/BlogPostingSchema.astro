@@ -1,0 +1,34 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import { SITE } from '../../config';
+
+interface Props {
+  post: CollectionEntry<'posts'>;
+  imageUrl: string;
+}
+
+const { post, imageUrl } = Astro.props;
+
+const schema = {
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": post.data.title,
+  "description": post.data.summary,
+  "image": imageUrl,
+  "author": post.data.author.map(name => ({
+    "@type": "Person",
+    "name": name
+  })),
+  "publisher": {
+    "@type": "Organization",
+    "name": SITE.title
+  },
+  "datePublished": post.data.publishedAt?.toISOString(),
+  "dateModified": (post.data.updatedAt || post.data.publishedAt)?.toISOString(),
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": Astro.url.href
+  }
+};
+---
+<script type="application/ld+json" set:html={JSON.stringify(schema)} />

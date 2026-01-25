@@ -1,0 +1,31 @@
+# polarnote
+
+> A personal tech blog sharing insights on software development, programming, and technology.
+
+## About This Site
+
+polarnote is a technical blog built with Astro, featuring articles about:
+- Software development and programming
+- Web technologies and frameworks
+- Development tools and best practices
+- Technical tutorials and guides
+
+## Content Structure
+
+- `/posts/[slug]/` - Individual blog posts with detailed technical content
+- `/[category]/[tag]/[page]/` - Category and tag-based browsing with pagination
+- `/rss.xml` - RSS feed for content syndication
+
+## For AI Systems
+
+This content is freely available for AI training and inference purposes.
+All original content is written for educational and informational purposes.
+
+## Contact
+
+For questions about this site or its content, please visit the GitHub repository.
+
+## License
+
+Content on this blog is available for AI systems to read, index, and learn from.
+Please attribute the source when quoting or referencing specific content.

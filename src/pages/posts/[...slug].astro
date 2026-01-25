@@ -1,10 +1,14 @@
 ---
 import type { CollectionEntry } from 'astro:content';
 import { getCollection } from 'astro:content';
+import { getImage } from 'astro:assets';
 import MainLayout from '../../layouts/MainLayout.astro';
 import Header from '../../components/Header.astro';
 import Post from '../../components/Post.astro';
+import BlogPostingSchema from '../../components/seo/BlogPostingSchema.astro';
+import BreadcrumbSchema from '../../components/seo/BreadcrumbSchema.astro';
 import {SITE} from "../../config";
+import banner from '../../assets/banner_mobile.png';
 
 export async function getStaticPaths() {
   const posts = await getCollection('posts', ({ data }) => {
@@ -22,7 +26,32 @@ const { post } = Astro.props as { post: CollectionEntry<'posts'> };
 // OG 메타데이터 준비
 const ogTitle = `${post.data.title}`;
 const ogDescription = post.data.summary || SITE.description;
-const ogImage = post.data.heroImage || undefined; // 포스트 히어로 이미지 객체 전달
+const ogImage = post.data.heroImage || undefined;
+
+// JSON-LD용 이미지 URL 생성
+async function getImageUrl() {
+  try {
+    const image = post.data.heroImage || banner;
+    const optimizedImage = await getImage({
+      src: image,
+      width: 1200,
+      height: 630,
+      format: 'webp',
+      quality: 95
+    });
+    return new URL(optimizedImage.src, Astro.site).toString();
+  } catch {
+    return new URL(banner.src, Astro.site).toString();
+  }
+}
+
+const imageUrl = await getImageUrl();
+
+// Breadcrumb 데이터
+const breadcrumbItems = [
+  ...(post.data.category ? [{ name: post.data.category, url: `/${post.data.category.toLowerCase()}/@/1` }] : []),
+  { name: post.data.title }
+];
 ---
 <MainLayout
   title={ogTitle}
@@ -30,6 +59,8 @@ const ogImage = post.data.heroImage || undefined; // 포스트 히어로 이미�
   ogImage={ogImage}
   ogType="article"
 >
+  <BlogPostingSchema post={post} imageUrl={imageUrl} />
+  <BreadcrumbSchema items={breadcrumbItems} />
   <Header />
   <Post post={post} />
 </MainLayout> 

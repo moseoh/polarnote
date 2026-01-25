@@ -1,3 +1,8 @@
 packages:
-  - '.'
-  - 'tools/notion2md'
+  - .
+  - tools/notion2md
+
+onlyBuiltDependencies:
+  - '@tailwindcss/oxide'
+  - esbuild
+  - sharp

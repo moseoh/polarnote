@@ -7,6 +7,7 @@ import CategoryTabs from '../../../components/CategoryTabs.astro';
 import PostList from '../../../components/PostList.astro';
 import Sidebar from '../../../components/Sidebar.astro';
 import Pagination from '../../../components/Pagination.astro';
+import WebSiteSchema from '../../../components/seo/WebSiteSchema.astro';
 import { POSTS_PER_PAGE, SITE, LAYOUT } from '../../../config';
 
 // 1. 빌드 시 가능한 모든 URL 경로 생성
@@ -114,13 +115,17 @@ const displayCategory = category === 'all' ? '전체' : (categoryMap.get(categor
 // OG 메타데이터 준비
 const ogTitle = `${displayCategory} ${tag !== 'all' ? `- ${tag}` : ''}`;
 const ogDescription = `${displayCategory} 카테고리의 블로그 포스트${tag !== 'all' ? ` (태그: ${tag})` : ''} - ${SITE.title}`;
+
+// 홈페이지 여부 (/@/@/1)
+const isHomePage = categoryParam === '@' && tagParam === '@' && page === 1;
 ---
 
-<MainLayout 
+<MainLayout
   title={ogTitle}
   description={ogDescription}
   ogType="website"
 >
+  {isHomePage && <WebSiteSchema />}
   <Header />
   <div class="md:mx-auto md:px-4 sm:md:px-6 lg:md:px-8" style={`max-width: ${LAYOUT.siteWidth}`}>
     <Banner />

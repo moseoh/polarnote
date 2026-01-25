@@ -11,6 +11,7 @@
     "copy-posts": "node tools/copy-posts.js"
   },
   "dependencies": {
+    "@astrojs/rss": "^4.0.15",
     "@astrojs/sitemap": "^3.4.1",
     "@lucide/astro": "^0.515.0",
     "@tailwindcss/vite": "^4.1.10",
