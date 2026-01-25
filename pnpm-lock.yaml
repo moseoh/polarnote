@@ -55,8 +55,8 @@ importers:
         specifier: ^16.5.0
         version: 16.6.1
       notion-to-md:
-        specifier: ^4.0.0-alpha.5
-        version: 4.0.0-alpha.5(@notionhq/client@2.3.0)
+        specifier: ^4.0.0-alpha.7
+        version: 4.0.0-alpha.7(@notionhq/client@2.3.0)(@types/node@20.19.4)(typescript@5.9.3)
     devDependencies:
       '@types/node':
         specifier: ^20.14.9
@@ -1608,8 +1608,8 @@ packages:
     resolution: {integrity: sha512-6eZs5Ls3WtCisHWp9S2GUy8dqkpGi4BVSz3GaqiE6ezub0512ESztXUwUB6C6IKbQkY2Pnb/mD4WYojCRwcwLA==}
     engines: {node: '>=0.10.0'}
 
-  notion-to-md@4.0.0-alpha.5:
-    resolution: {integrity: sha512-VAicJcTiGwBv7eO3RpDdE4UkthQtHgo+Nw2RBhuK+z4cbrzW87C3Vpblk9zmPJt1Vwor2ECWjGVE7ptmCwxyLQ==}
+  notion-to-md@4.0.0-alpha.7:
+    resolution: {integrity: sha512-3kocKMEVcivy2ccuv2uZDJQFKXdvRmsujbN2GeOwP6yoNqhj/c/fmXroqPkk4XXRqNdJB2jzf5NPhPSWpuZkdA==}
     engines: {node: '>=12'}
     peerDependencies:
       '@notionhq/client': ^2.0.0
@@ -3806,13 +3806,18 @@ snapshots:
 
   normalize-path@3.0.0: {}
 
-  notion-to-md@4.0.0-alpha.5(@notionhq/client@2.3.0):
+  notion-to-md@4.0.0-alpha.7(@notionhq/client@2.3.0)(@types/node@20.19.4)(typescript@5.9.3):
     dependencies:
       '@notionhq/client': 2.3.0
       mime: 3.0.0
       node-fetch: 2.7.0
+      ts-node: 10.9.2(@types/node@20.19.4)(typescript@5.9.3)
     transitivePeerDependencies:
+      - '@swc/core'
+      - '@swc/wasm'
+      - '@types/node'
       - encoding
+      - typescript
 
   nth-check@2.1.1:
     dependencies:
